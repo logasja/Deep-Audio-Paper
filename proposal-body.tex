@@ -1,0 +1,347 @@
+\section{Introduction}
+
+Over the last decade, audio has become easier to collect in environments ranging from in-home microphones in intelligent assistants to diver wearable devices \cite{kohlsdorf_underwater_2013}. This is in part a consequence of embedded systems becoming smaller and more efficient, thus being able to be ubiquitous. In conjunction with this, data storage costs continue to decrease making it simple to amass terabytes of unlabelled audio data. These datasets undoubtedly hold new insights into the subject however the effort required to manually label all instances in one of these datasets is infeasible and can lead to missed or mislabeled events. This problem has been investigated thoroughly in image datasets with much success. However, attempts to apply these techniques to audio spectrograms have seen mixed success. This is in large part due to the "transparency" of audio where if multiple sources exist in the data, they can overlap in similar frequency ranges. Thus we investigate a different representation and probabilistic retrieval for exploration of audio datasets.
+
+Second Point: We can use audio for a lot
+\begin{itemize}
+    \item Environmental Context
+    \item Speaker recognition
+    \item commands
+    \item Inner state
+\end{itemize}
+
+The audible world holds much information, often information that we as humans either cannot hear or ignore in favor for other sensory cues. 
+
+Audio can be used to determine an animal's inner emotional state \cite{Farago2010}, the environmental context of the recording \cite{Eronen2006}, discriminate between speakers \cite{Campbell1997}, and obtain a textual representation of speech \cite{Rabiner1989} among other applications. Collection and storage costs of audio are much lower than either images or videos evidenced by wearable embedded systems capable of recording audio throughout the day \cite{Choudhury2008}. Audio has also been used to detect context using mobile devices with little effect on battery life \cite{Lane2015}. These studies illustrate audio's usefulness across domains, especially with power or storage constraints. An observational field study would benefit greatly from a wearable, context aware device with long battery life. As an example, a study of wild wolf social behaviors is difficult to accomplish without a staff of researchers to actively follow and record them. Based on the research presented, the clearly optimal approach is to place an audio recording device on one or more of the pack. Audio collection allows it to be power-efficient enough to last days or weeks at a time while remaining small enough to avoid interference with the animal's activities. However as with any study like this, the amount of data collected is enormous and will require many man hours to properly label and can often lead to data being overlooked \cite{Bardeli2009, Rong2018}. Here, content-based retrieval methods can reduce this overhead.
+
+Third Point: Breifly explain CBR
+\begin{itemize}
+    \item 
+\end{itemize}
+
+Content-based retrieval is a method of querying information from an unstructured dataset. Before the advent of \textit{Big Data}, naive approaches retrieved desired information in an acceptable time frame. Similarity search is the naive approach to unstructured data retrieval. Similarity search uses exemplars of an audio document to find matches in the dataset. This approach is restrictive in two ways. First, it requires an exemplar of all desired audio segments which can at times defeat the purpose of searching the dataset and doesn't allow for easy dataset exploration. Second, it must check similarity of every file in the dataset which even with efficient algorithms can require a large amount of time. Now though, the datasets are much too large to use naive approaches and thus require more nuanced methods and compact data representations to be useful to users.
+
+Fourth Point: What'll I do about it (breifly)
+\begin{itemize}
+    \item 
+\end{itemize}
+
+Here, I propose using a model of this hierarchy of human audio perception for representation. As mentioned before, audio signals can contain a large amount of information but it is important to note that this information is largely a consequence of combinations of the lowest level intensity, spectral, and statistical properties. These properties form the base of a hierarchical representation of sound that is combined to form temporal properties which are used to form cognitive properties. Perception is of interest as the human capacity continues to exceed that of machine listeners, thus it is hypothesized better performance can be gained from an understanding and model of human systems. This hypothesis has led to psychological and physiological studies into how and why human perception is accurate and how it audio can be optimally encoded \cite{Gaver1993, Eggermont2001, slaney1993importance, Piazza2013}.
+
+\begin{wrapfigure}{l}{0.21\textwidth}
+    \begin{center}
+        \includegraphics[width=0.2\textwidth]{figures/MDN.png}
+    \end{center}
+    \caption{The Mixture Density Network has a feed-forward neural network with output of mixture density model parameters. The mixture model is conditional probability density function of the target.}
+    \label{fig:MDN}
+\end{wrapfigure}
+
+Building on the human perception model of audio, I use the Gaver taxonomy of sound to inform how to optimally form the recognition model. Gaver posits that human perception of sound falls into a hierarchy beginning with three classes: animal, interacting material, and musical sounds. Under these hierarchies the taxonomy becomes more specific and in theory increases in complexity \cite{Gaver1993}. As an example, discriminating between a dog's bark and a door slamming is trivial but discriminating between a Border Collie bark and a Doberman bark is complex.
+
+With an encoded representation at hand, I aim to represent human-like uncertainty. This kind of uncertainty is often accomplished through use of a probabilistic model. The most common mixture model used is a Gaussian Mixture Model (GMM) in which a dataset is used to train a set of Gaussians to model the posterior probability of an item belonging to one of the Gaussians. This kind of approach has seen success in the past, especially when used with speech recognition \cite{Campbell1997}. However, GMMs do not benefit from Deep Learning which has a demonstrated ability to capture underlying structures in the data. Fortunately, neural networks can be trained as a probabilistic model \cite{Specht1990, bishop1994mixture}. A probabilistic neural network as described by Specht is a consequence of replacing the activation function with a exponential function. This network is fine for simple probability estimates but a mixture model is an optimal choice for modelling probability density functions. To keep the strengths of neural networks and mixture networks, we use a Mixture Density Network. A simple overview of a MDN is shown in ~/ref{fig:MDN}. The neural network is not trained to classify into the target variable but instead is trained to provide parameters for a mixture model that best fits the data \cite{bishop1994mixture}. This allows any depth feed-forward network to be used to find a probability density function that best matches data when the data requires some uncertainty.
+
+In all, the contributions this work provides is as follows:
+\begin{itemize}
+    \item Present an audio representation based on human perception of sound.
+    \item Demonstrate a model formed to match the Gaver taxonomy of sound.
+    \item Use MDNs to retrieve unstructured data with high confidence.
+\end{itemize}
+
+\section{Background}
+\subsection{Human Hearing Mechanisms}
+As we desire to model the human perception systems as closely as possible, it is instructive to research the anatomy of the ear. Human hearing starts at the outer ear with the \textit{pinna} acting as a kind of preprocessor that modifies the sound depending on its direction. Sound then travels through the ear canal which further modifies the spectral properties by resonating in a way that amplifies frequencies in the 1-6 kHz range. As the end of the ear canal is reached, the sound waves excite the eardrum that the \textit{ossicles} are attached which transmit the pressure from the ear canal to the \textit{cochlea} in the inner ear \cite{Plack2018}. Of all the ear structures, the \textit{cochlea} is of greatest interest in forming sound representations as it is responsible for converting acoustics into human neural activity. The \textit{cochlea} is a coiled tube separated by two membranes, the \textit{Reissner's membrane} and the \textit{basilar membrane}. Simply, the \textit{basilar membrane} can be considered as a collection of band-pass filters which separate sounds into the spectral components. Overall, this is a brief summary of the primary mechanism that humans use to convert sound pressure into neural activity which we are attempting to emulate digitally.
+
+\subsection{Neural Coding}
+In the brain, the \textit{cochlea} is not the end of auditory processing in the mind before conscious perception takes place. Several processes form a \textit{neural code} that represents the interface between the stimulus of the sound and its perception. This process chain is still relatively unknown and much of what we do know is speculative. Currently it is believed that five complex processes occur in sequence that prepare the information for perception \cite{Eggermont2001}. These indicate a form of coding of incoming frequency spectra can make sound impressions less expensive to process in neural networks. There have been several attempts at modeling these embeddings using autoencoders in the hope to find commonalities in frequency spectra representing meaningful features of sounds.
+
+\subsection{Echoic Memory}
+A sound's meaning rarely, if ever can be determined by a single frame. Instead, sounds can mean different things based on where they occur in relation to other sounds. Humans encode identical speech phonemes differently based on the temporal context \cite{Eggermont2001}. Thus memory in this domain is important to machine sound analysis as meaning is a function of the current moment of sound as well as past moments. \textit{Echoic memory} is the name given to auditory sensory memory found in humans. Echoic memory is critical in permitting listeners to integrate incoming information with past events. There is some disagreement on the duration of echoic memory in humans with some arguing ~250 ms and others ~4 seconds \cite{Wingfield2016}.
+
+\subsection{Previous Work}
+
+\subsection{Encoding}
+There have been several attempts at creating a compact and efficient encoding of audio conducive to classification training. The following is a brief overview of those that have found some success.
+
+The most common approach is to use Mel-Frequency Cepstrum Coefficients (MFCC) and statistical components of the audio signal like zero crossing rate and silence rate to form the feature vector for an auditory signal \cite{Roma2010}. MFCCs are popular in audio classification tasks as they use a spectrogram with a higher weighting on frequencies that humans are attuned to. The though is, if humans can discriminate with these features attenuated then a machine can also benefit from this representation. The statistical representations of audio aim to capture the temporal features of a signal as we know these are important to classification \cite{slaney1993importance}. These features are popular in audio classification because they are simple to obtain from audio clips and provide good performance on several off-the-shelf learners.
+
+Encoding the signals using deep neural networks is another popular approach. To do this a model with two discrete parts, encoder and decoder must be built. The model is trained with the goal of recreating the original signal and after training the encoder is split from the model. It is expected that the values given by the encoder are representative of the original signal. In audio, auto-encoders often use convolutional neural networks with the spectrogram. Convolutional auto-encoders have been useful in the visual domain and thus is expected to be as effective in audio, however audio is much more reliant on temporal features and thus this approach has middling success.
+
+To mitigate this encoding issue, recurrent neural networks are seeing more use. Long Short-Term Memory (LSTM) layers are becoming more prevalent for encoding time-sensitive signals into latent variables \cite{Meyer2017}. An LSTM layer is well-suited for use with time series data as it takes lags of important events in time series into account. Meyer found success in using a convolutional LSTM network to encode audio data that outperformed non-clustered data on a shallow neural network. Though, Meyer's approach doesn't appear to take overlapping sounds into account.
+
+\subsection{Retrieval}
+The common approach to content-based audio retrieval is query-by-example. In this system, the user uses an audio document to query and is presented with a list of audio documents that match some similarity heuristic. Similarity heuristics were studied extensively to improve efficiency and accuracy as this was the method of choice for some time. Wan and Lu ran a comparative study of popular features and heuristics for similarity search that demonstrate the shortcomings of these methods \cite{Wan2005}. Their results show low accuracy over datasets and slow execution times, especially when compared to deep learning techniques. Results like this led the field to largely abandon this approach, especially for large datasets.
+
+Turnbull et. al. presented a system for text query audio retrieval which automatically annotated documents in the dataset. This was accomplished by training a GMM for each word in the predefined set of words that the tags could be. This first attempt focused on music retrieval and as such the vocabulary was made up of genres, instruments, and other identifiable music features. The system works by annotating everything in the dataset and then ranking them. It had some success with well above random guessing accuracy and was therefore expanded upon. The second study replaced the music dataset with a sound effects set with a 348 word vocabulary. Again each vocabulary word had a GMM trained on it but in this study, the audio proved more difficult to classify \cite{Turnbull2007, Turnbull2008}.
+
+Chechik et. al. proposed a system using a traditional image-based retrieval method that is modified for use in the audio domain with text queries. They found great success in this approach and were able to outperform the current state-of-the-art when applied to both clean and noisy datasets. This is significant because they were able to not only outperform the other methods, but their method also did not require a set vocabulary for classification and could adapt to synonymous tags. It obtained an average precision of 27.5\% across the clean and noisy datasets with 3400 and 15800 documents, respectively. The total experimental time (training + test) was at maximum 6 hours, clearly making this tool more usable than past approaches but still not quite fast enough for quick exploration of data \cite{Chechik2008}.
+
+
+\section{Pipeline Overview}
+The basic approach is to represent the audio in a more differentiable way, filter with shallow neural networks, and finally classify with a probabilistic deep neural network.
+
+\subsection{Acoustic Features}
+First in the classification pipeline is an encoding of audio signals. Each audio file in the dataset is read in blocks of time with overlapping segments in an effort to have the data cover all audio objects. Blocks with no sound are discarded, this is done to reduce data size but also to avoid correlating silence to some class which can easily confuse the agent. Each block of audio then has its spectrogram computed from which the frequency features are extracted. In addition to the frequency features, temporal statistics of the raw audio is used to capture temporal properties of the signal. An LSTM auto-encoder is also used to extract relevant features from the spectrogram as described by Meyer \cite{Meyer2017}.
+
+\subsection{Classification Model}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figures/NeuralNetHierarchy.png}
+    \caption{Overview of the classification model}
+    \label{fig:NetHier}
+\end{figure}
+
+The proposed classification model is illustrated in Figure ~\ref{fig:NetHier}. At the top level are the most general descriptors of a sound and are thought to be easily classified. A shallow neural network is used to allow the most obviously unrelated documents to be discarded early during querying. Subsequent networks become more and more specialized as the discrimination task becomes more difficult. The networks used are probabilistic which allows for uncertainty to be quantified in the results as well as provide a clear heuristic for scoring results. Neural networks are used here as there has been much work to make prototyping networks faster and the mature ecosystem of GPU accelerated evaluation and training. In this work we use Keras with a Tensorflow backend \cite{Abadi2016, chollet2015keras}.
+
+\subsubsection{Top Level Classifier}
+To emulate the Gaver theory of human auditory perception, a binary neural network classifier is trained with examples of \textit{Interacting Materials} and \textit{Animal Voices}. Note that \textit{Animal Voices} includes that of humans and that music is excluded from this classification task. Shallow neural networks are used for the top level to reduce execution and training time. As the first layer of the classifier, it allows the retrieval task to discard clearly irrelevant files. By doing so, subsequent classifiers are able to be much more expensive to discriminate between hard to classify items.
+
+\subsubsection{General Classifier}
+Deep Neural Networks (DNN) are employed as the next layer in the classification model. This layer is more specific than the top layer but still has mostly general classes. The classes of this layer on the \textit{Animal Voices} side of the model have classes for general kinds of animals (birds, cats, dogs) and sounds common between all animals (coughing, sneezing, breathing). In the \textit{Interacting Materials} side of the model, the classes are for kinds of element interactions like running water, blowing wind, or solid on solid contact. This intermediate level allows for even more narrowing of the search space and allows for more general retrieval results if desired. For extremely specific queries, there is a final layer.
+
+\subsubsection{Specific Classifier}
+The final layer again uses DNNs but is trained to discriminate between the lowest level classes, which are the most difficult to discriminate between. These are the classification tasks that are at times difficult for humans to discriminate between. For example on the \textit{Animal Voices} side of the hierarchy, once a document is classified into a kind of animal it is classified into the specific kind of vocalization being made. This side of the hierarchy is not explained in as much depth by Gaver however for the purposes of this work we form this hierarchy. The \textit{Interacting Materials} side of the classifier has DNNs trained on the three classes used by Roma et. al.: vibrating solids, aerodynamic sounds, and liquid sounds \cite{Roma2010}. It is hypothesized that these classifiers will more easily learn the nuances between similar sounds and be able to achieve higher accuracy than predecessors.
+
+\subsection{Retrieval}
+The mechanism for document retrieval is straightforward. A text query of the sound the user wants to retrieve is entered and a ranked list of documents is returned from the dataset. The rankings are given by the probability of a document belonging to the queried class. This has benefits over executing discrete predictions and returning the result as the probability is an analog for the confidence of a sound object existing in documents. This means that the results to some rank k will have a high confidence of containing the object. In the future, natural language processing will be applied to the queries to allow queries to be natural.
+
+\section{Representation}
+
+\subsection{Gaver Taxonomy}
+
+\subsection{Feature Extraction}
+
+\begin{itemize}
+    \item Highlight Limitations of approach
+    \item Expand upon limitations
+\end{itemize}
+
+\section{Classification}
+
+\subsection{High Level}
+    \textit{The why of it working}
+    
+\subsection{Low Level}
+
+\section{Retrieval}
+
+\begin{itemize}
+    \item Technique
+    \item Look for differences and why mine is better
+\end{itemize}
+
+\section{Implementation}
+
+\section{Evaluation}
+
+\subsection{Datasets}
+The system depends on the ability of the machine learning agent to be able to match between acoustic features and the text queries. Its performance depends on both the size of the dataset and the specificity of the query. To examine performance across environments, we choose a clean and a dirty dataset: ESC-50 \cite{Piczak2015} and AudioSet \cite{Gemmeke2017}.
+
+\subsubsection{ESC-50}
+This clean dataset is made available on GitHub for environmental sound classification. It is maintained such that the tag vocabulary is fixed and each audio document attempts to only contains a single object in it. Each document is 5 seconds long and audio quality in terms of samplerate and recording noise is normalized across the dataset. This makes for a very clean dataset with little noise in both audio and annotation. It has 50 semantic classes with 40 examples per class arranged into 5 major categories. However, the major categories do not match the Gaver taxonomy and so were manually separated as in Table ~\ref{tab:relabel}. The dataset's sound documents come from the Freesound project with the author providing uniform tags and normalizing the audio manually \cite{Font2013}.
+
+\begin{table}[]
+    \begin{tabular}{c|cc}
+    \textbf{Animal} & \multicolumn{2}{c}{\textbf{Material}}  \\ \hline
+    dog             & rain              & can                \\
+    rooster         & sea waves         & airplane           \\
+    pig             & crackling fire    & fireworks          \\
+    cow             & water drops       & hand saw           \\
+    frog            & wind              & brushing teeth     \\
+    cat             & pouring water     & drinking sipping   \\
+    hen             & toilet flush      & door wood knock    \\
+    insects         & thunderstorm      & mouse click        \\
+    sheep           & footsteps         & keyboard typing    \\
+    snoring         & clock             & door wood creaks   \\
+    crow            & clock tick        & washing            \\
+    crickets        & glass breaking    & vacuum             \\
+    chirping birds  & helicopter        &                    \\
+    crying baby     & chainsaw          &                    \\
+    sneezing        & siren             &                    \\
+    clapping        & car horn          &                    \\
+    breathing       & engine            &                    \\
+    coughing        & train             &                    \\
+    laughing        & church bells      &                   
+    \end{tabular}
+    \caption{Classification of sounds in the ESC-50 dataset into the top level of the Gaver taxonomy.}
+    \label{tab:relabel}
+\end{table}
+
+\subsubsection{AudioSet}
+This dataset is created by Google using the vast amount of audio data available to them from all publicly available YouTube videos. As most YouTube videos are created and uploaded by the public, the tags of the videos will be filled with inconsistencies from human error. In addition to the user-provided tags, human volunteers manually added new annotations to segments of videos with audio objects in them that were not previously tagged. The result is a dataset with 5.8 thousand hours of audio and 527 classes of annotated sounds over 2.1 million annotated videos. The 527 classes are not independent of each other with some being synonymous with others. This dataset provides a perfect representation of a large scale dataset with inconsistent annotations.
+
+\subsection{Procedure}
+
+% \subsubsection{Annotation Normalization}
+% Annotation normalization is carried out on subsets of both the ESC-50 and AudioSet dataset. Performance is measured in terms of execution time, efficiency, and overall annotation reduction. The normalization performance is measured against human performance and Hsu's normalization results \cite{Hsu2008}. As ESC-50 already has its annotations manually normalized, the normalization experiments demonstrate if the techniques go too far and overgeneralize. Additionally, it provides a clean test-bed for hypernyms to be evaluated. For hypernym sets, we hope to have sets that as much as possible attempt to distribute the dataset across them. AudioSet presents a much greater challenge for the low level normalization task. These experiments give insight into how the technique works at scale and what bottlenecks exist.
+
+\subsubsection{Encoding}
+
+
+\subsubsection{Top Level Classifier}
+As this task is thought to be the least computationally intensive, it is tested against a Support Vector Machine (SVM) which is a classifier that aims to find a hyper-plane between the data points that best separates it. A single-threaded CPU SVM implementation is used for evaluation and therefore training and testing time is not compared against the shallow network which runs parallel on a GPU. A Random Forest Classifier (RFC) is also trained on the data and tested against the network to evaluate performance when compared with a complex classifier. These evaluations are only done on the ESC-50 dataset as testing and training time on AudioSet would be prohibitive especially for the CPU bound models.
+
+\subsubsection{General Classifier}
+This task is more complex, especially for \textit{Interacting Materials} as it has a majority of the classes in the dataset. To evaluate performance with this classifier we only use the RFC as it is hypothesized that an SVM model would not be performant.
+
+\subsubsection{Specific Classifier}
+As the most complex task in the classification hierarchy, we use two ensemble classifiers to compare with the DNN implementation. The first has been used in the other evaluations, RFC, but the second is an AdaBoost classifier. This classifier uses a collection of weak learners to, as a whole, form a powerful classification agent.
+
+\subsubsection{Overall Performance}
+Performance of the system as a whole is compared against a DNN trained on all 50 classes directly. This will determine whether our approach of using insights into human perception from research is well founded. If a standard DNN has performance greater than or equal to this system's it shows that the network optimizers are able to find statistical correlations that approximate the perception structure we have discovered in humans. 
+
+\subsubsection{Retrieval}
+Retrieval evaluations evaluate how well the system is able to retrieve a correct document within the k top results. Here, an optimal query only requests one object and does so with the canonical name for it. Through these experiments we evaluate the core retrieval portion of the pipeline and can determine its accuracy and execution time performance.
+
+\subsection{Results}
+
+\subsubsection{Encoding}
+
+\begin{wrapfigure}{r}{0.21\textwidth}
+    \vspace{-17pt}
+    \begin{center}
+        \includegraphics[width=0.2\textwidth]{figures/autoencoded.png}
+    \end{center}
+    \caption{The original spectrogram and the auto-encoder result after training.}
+    \label{fig:encode}
+\end{wrapfigure}
+
+These experiments attempted to measure the effectiveness of different encoding approaches as well as a base case of an extracted feature vector. Audio is read in using a blocksize of 2s or 250ms with overlap of 1s and 125ms respectively. This is done to determine effective time windowing of the data, however this approach added some overhead for reading of files as summarized in Table ~\ref{tab:base-time}. A more granular blocksize causes the read and processing time to greatly increase, because of the increase in individual audio clips being evaluated.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|cc}
+    \textbf{Window} & \textbf{Read} & \textbf{Process} \\ \hline
+    250              & 7840           & 37318                    \\
+    2000             & 2413           & 4831                   
+    \end{tabular}
+    \caption{The average read time for 400 documents and processing time by librosa. Time in ms.}
+    \label{tab:base-time}
+\end{table}
+
+\subsubsection{Extracted Features}
+This representation of the audio was created using feature extraction techniques found in the librosa library \cite{brian_mcfee_2018_1252297}. The features chosen for classification as a base case were the first 13 MFCCs and the spectral contrast of the signal. MFCCs are common in audio classification tasks as they are often able to keep much of the signal's information without needing the entire spectrogram. The first and second derivative of MFCCs were also computed for the feature vector to provide the learner with some features that can emulate how the signal changes over time. To this end, spectral contrast is also added as it provides the contrast between the peaks and valleys of the signal at each frame. The extracted features are then averaged down to a single vector per frame. In all, the feature vector is made up of 49 values.
+
+\subsubsection{Neural Network}
+As mentioned before, it is common to use an auto-encoder to create latent variables for classification. The idea is similar to that of a clustering algorithm like Principal Components Analysis in which the algorithm tries to find features that are of greatest variance. Here, both traditional neural networks and convolutional neural networks are used to create an encoder. The overall results were underwhelming with the biggest gain being made on the testing set. In all these auto-encoders provided about +/- 5\% accuracy change which can also be attributed to shuffling of data during training. The results of the auto-encoding with CNNs are summarized in Figure ~\ref{fig:encode}. Here, frames of audio are converted into expanded representations with more weight given to the most recent frame so the encoder can learn temporal relationships. It appears to learn a latent representation well with a reconstruction score of approximately 47\%. However, the auto-encoder takes between 45 and 75 minutes to fully train and the results are no better than previous.
+
+\subsubsection{Classification}
+
+\begin{table}[h]
+    \begin{tabular}{lll}
+        & 250ms   & 2000ms  \\ \hline
+    SVM & 0.627 & 0.622 \\
+    SNN & 0.717 & 0.729 \\
+    RFC & 0.688 & 0.665
+    \end{tabular}
+    \caption{Classifier precision for top level.}
+    \label{tab:topacc}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/Top_Level_Comparison.png}
+    \caption{Confusion matrices of top level classifiers.}
+    \label{fig:TopClass}
+\end{figure}
+
+\subsubsection{Top Level Classifier}
+As described previously, this classifier is meant to discriminate between the highest level of the Gaver taxonomy. Table ~/ref{tab:topacc} summarizes the precision of each of these classifiers for the different blocksizes. Figure ~\ref{fig:TopClass} shows the confusion matrix of the most accurate model for each classifier as there was little difference between the blocksizes. The experiments show that the shallow network approach provides the best approximation of the two classes. SVMs were the poorest performers at 63\% accuracy at maximum with most guesses being for interacting materials. In this case, it is likely that the features used for evaluation were not linearly differentiable and thus the standard SVM was unable to find a good decision boundary. RFCs and SNNs performed similar in this task with the SNN giving slightly more weight to interacting elements than the RFC.
+
+\begin{table}[h]
+    \caption{Classifier precision for \textit{Animal Voices}.}
+    \label{tab:animvocprec}
+    \begin{tabular}{lll}
+        & 250   & 2000  \\ \hline
+    SVM & 0.069 & 0.073 \\
+    DNN & 0.280 & 0.300 \\
+    RFC & 0.254 & 0.212
+    \end{tabular}
+\end{table}
+
+\begin{figure}[b]
+    \includegraphics[width=0.35\textwidth]{figures/Animal_Classification_Comparison.png}
+    \caption{Summary of classification results for the \textit{Animal Voices} classifier.}
+    \label{fig:AnimClass}
+\end{figure}
+
+\subsubsection{Animal Voices Classifier}
+
+The classifier is trained on the 19 classes identified beforehand. The 19 classes that make up the animal sounds in the dataset have some overlap, especially for identifiers like "breathing" and "laughing" as these are often breathy sounds. The precision results of each classifier is summarized in Table ~\ref{tab:animvocprec}. Here, DNNs outperform both classifiers on precision however with a 2 second time window we see DNN achieve its maximum precision while RFC precision decreases.
+
+The confusion matrices in Figure ~\ref{fig:AnimClass} illustrates the agent often misclassifies breathing, coughing, laughing, and snoring across nearly every other class. This phenomenon is illustrated by the cutout in Figure ~\ref{fig:breath}. The highest concentration of false predictions of these four classes occurs between the classes. It is believed that this is likely due to the sounds in the dataset invariably capturing the animal's breathing patterns which, in this case, trains the network on mislabeled breathing examples.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/breathcorrelation.png}
+    \caption{A cutout of the \textit{Animal Voice} DNN matrix.}
+    \label{fig:breath}
+\end{figure}
+
+Another false correlation arose in this subset of the data, the agent is consistently confused between birds chirping and crickets. This is likely due to both the pitch and duration of the sounds being more similar to each other than to other sounds in the training set. This causes the agent to give less importance to these classes during training as committing neurons to them increases the loss elsewhere.
+
+\begin{table}[h]
+    \begin{tabular}{ccc}
+        & 250   & 2000  \\ \hline
+    SVM & 0.045 & 0.057 \\
+    DNN & 0.189 & 0.191 \\
+    RFC & 0.185 & 0.176
+    \end{tabular}
+    \caption{Classifier precision for \textit{Interacting Materials}.}
+    \label{tab:interactprec}
+\end{table}
+
+\begin{figure}[h]
+    \includegraphics[width=0.35\textwidth]{figures/Material_Classification_Comparison.png}
+    \caption{Summary of classification results for the \textit{Interacting Materials} classifier.}
+    \label{fig:InterClass}
+\end{figure}
+
+\subsubsection{Interacting Materials}
+This classification task has 31 classes, with many having overlapping kinds of sounds. This is especially true of classes with flowing water which makes up 25\% of the data. As seen in Figure ~\ref{fig:InterClass} class confusion is widespread in DNNs though it is more densely concentrated than the results of the RFC. The hypothesis is that these confusions have a basis in the source and where the sound was recorded.
+
+In the results here we found that much of the class confusion was a result of the sound tags being ambiguous with regard to other classes. This is most apparent in classes that are in some way related to water. Here we have separate classes for pouring water, rain, sea waves, and water drops among others. The potential for confusion here is high as recordings with rain will invariably have examples of pouring water in them, similarly water drops are nearly synonymous with rain. Under this scrutiny, it is unsurprising that these classes were often confused for each other.
+
+Related to this phenomenon in \textit{Interacting Materials} is the occurrence of recordings containing overlapping sounds found elsewhere in the dataset. An example of this is the car horn class which understandably has audio documents that have a horn honking as the car is running. Since another detection target is engine, it is possible that blocks of audio from a car horn document will be classified as an engine. While this perception is correct, it is technically incorrect in the classification task and is marked as such. This kind of confusion is mitigated through our use of probabilistic ranking in results.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ccc}
+         & 250   & 2000  \\ \hline
+    DNN  & 0.174 & 0.191 \\
+    HDNN & 0.246 & 0.130
+    \end{tabular}
+    \caption{Classification results of a hierarchical DNN and a standard DNN trained on all 50 classes.}
+    \label{tab:overallprec}
+\end{table}
+
+
+\begin{figure}[h]
+    \caption{Resultant confusion matrix of HDNN model.}
+    \label{fig:Overall}
+    \includegraphics[width=0.40\textwidth]{figures/Overall.png}
+\end{figure}
+
+\subsubsection{Overall Accuracy}
+Here, we compare a DNN trained on all 50 classes at once to the hierarchical DNN (HDNN). The class of each document in the dataset is determined in the HDNN as the highest average probability class. It is important to note that this does not mean that all frames are equally certain of the class but that a majority considered it to be the correct class. As Table ~\ref{tab:overallprec} shows, the HDNN performs better when given more granular data on which to learn. This is likely a consequence of the learner having a more focused time window to better learn audio objects individually.
+
+Figure ~\ref{fig:Overall} illustrates a shortcoming of this prediction evaluation model. The line along the pouring water class is highly correlated to classes with water in them. It is likely that a majority of the audio document continuously has the sound of running water which is overwhelming the instances of the target class. This becomes even more clear when viewing the probability results of documents, it is often that the second-most probable class is the canonically correct class. This phenomenon is demonstrated by Figure ~\ref{fig:probChart}. In this case, it is unclear which should be taken as they have nearly equal probabilities but only one of them is technically correct. However, this is not as much of an issue when using this kind of classifier for retrieval as it is more important that a sound is detected in a document and not whether or not it is certainly the only sound in the document.
+
+\begin{figure}[h]
+    \includegraphics[width=0.50\textwidth]{figures/probchart.png}
+    \caption{Probability distribution of a can opening, the target class is 34 which here is tied for first.}
+    \label{fig:probChart}
+\end{figure}
+
+\section{Conclusion}
+The approach here shows promise, especially in the context of a retrieval system. Using human perception as a model is an approach that had been pursued in machine vision with success and it is only logical to do the same for machine listening. By understanding the mechanisms by which we convert auditory signals to brain signals, we can understand how the audio needs to be encoded for use in machine hearing. One of the aspects of audio we have yet to optimally integrate are temporal features which are of utmost importance in audio signals.
+
+To this end, several representations were attempted in this work. The first was just basic feature extraction from spectral representations of the audio using librosa. Librosa allowed for many spectral and temporal features to be taken from the signal though it is a slow process and may still not provide a good feature set. To better emulate human perception, auto-encoders were attempted next. The thought was that a neural network will be able to find latent variables that are of better use than those extracted from usual means. However, it was found that this approach did not bear out and hardly effected performance.
+
+Experiments were run comparing this approach to two off-the-shelf classifiers on each layer of the hierarchy. The SVM classifier consistently under-performed and will likely be removed from subsequent evaluations. A Random Forest Classifier was consistently about equal to the neural networks it was evaluated against but in nearly every case, the network was able to beat its precision score.
+
+Overall, this study provided insights into the complexity of autonomous audio analysis and the challenges that are still facing the field. of these challenges, it seems that representation is the most pressing. It appears though that the current direction of studying human perception mechanisms and emulating them will prove optimal.
+
+\section{Future Work}
+
+The hierarchical approach in its current iteration only provides minimal improvement over standard DNNs. However, the lessons learned here provide a basis on which to build out a more performant system. First, representation will be revisited and recurrent neural networks will be employed to aid in creating a new representation that considers audio's temporal nature. Second, more specific probabilistic neural networks will be investigated for integration into the \textit{Animal Voices} and \textit{Interacting Materials} classification tasks. Finally, a querying front-end will be developed for this and will be used for querying of the AudioSet dataset.
