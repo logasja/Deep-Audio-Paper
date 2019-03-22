@@ -20,10 +20,6 @@ Here, I propose creating a model based on a taxonomy of human audio perception. 
 %     \label{fig:MDN}
 % \end{wrapfigure}
 
-% Building on the human perception model of audio, I use the Gaver taxonomy of sound to inform how to optimally form the recognition model. Gaver posits that human perception of sound falls into a hierarchy beginning with three classes: animal, interacting material, and musical sounds. Under these hierarchies the taxonomy becomes more specific and in theory increases in complexity \cite{Gaver1993}. As an example, discriminating between a dog's bark and a door slamming is trivial but discriminating between a Border Collie bark and a Doberman bark is complex.
-
-% With an encoded representation at hand, I aim to represent human-like uncertainty. This kind of uncertainty is often accomplished through use of a probabilistic model. The most common mixture model used is a Gaussian Mixture Model (GMM) in which a dataset is used to train a set of Gaussians to model the posterior probability of an item belonging to one of the Gaussians. This kind of approach has seen success in the past, especially when used with speech recognition \cite{Campbell1997}. However, GMMs do not benefit from Deep Learning which has a demonstrated ability to capture underlying structures in the data. Fortunately, neural networks can be trained as a probabilistic model \cite{Specht1990, bishop1994mixture}. A probabilistic neural network as described by Specht is a consequence of replacing the activation function with a exponential function. This network is fine for simple probability estimates but a mixture model is an optimal choice for modelling probability density functions. To keep the strengths of neural networks and mixture networks, we use a Mixture Density Network. A simple overview of a MDN is shown in ~/ref{fig:MDN}. The neural network is not trained to classify into the target variable but instead is trained to provide parameters for a mixture model that best fits the data \cite{bishop1994mixture}. This allows any depth feed-forward network to be used to find a probability density function that best matches data when the data requires some uncertainty.
-
 In all, the contributions this work provides is as follows:
 \begin{itemize}
     \item Present an audio representation based on human perception of sound.
@@ -32,6 +28,35 @@ In all, the contributions this work provides is as follows:
 \end{itemize}
 
 \section{Background}
+\begin{itemize}
+    \item Machine Hearing Principles
+    \item Spectrogram Based Machine Hearing
+    \item Case for Audio-Based Machine Hearing (w/ results teaser)
+\end{itemize}
+
+\subsection{Machine Hearing Principles}
+\begin{itemize}
+    \item Briefly explain machine hearing in context.
+    \item Explain why it is best to model human hearing.
+    \item Explain desired system structure (ala Lyon)
+    \item Describe some about Neural Coding + Echoic Memory
+\end{itemize}
+
+\subsection{Spectrogram-Based Machine Hearing}
+\begin{itemize}
+    \item CNN approach
+    \item Image retrieval (PAMIR approach)
+    \item How this fits into Neural Coding and Echoic Memory
+\end{itemize}
+
+\subsection{Waveform-Based Machine Hearing}
+\begin{itemize}
+    \item Transparency of Audio
+    \item RNN approaches
+    \item Audio features + how they apply
+    \item My approach + some teaser
+\end{itemize}
+
 \subsection{Human Hearing Mechanisms}
 As we desire to model the human perception systems as closely as possible, it is instructive to research the anatomy of the ear. Human hearing starts at the outer ear with the \textit{pinna} acting as a kind of preprocessor that modifies the sound depending on its direction. Sound then travels through the ear canal which further modifies the spectral properties by resonating in a way that amplifies frequencies in the 1-6 kHz range. As the end of the ear canal is reached, the sound waves excite the eardrum that the \textit{ossicles} are attached which transmit the pressure from the ear canal to the \textit{cochlea} in the inner ear \cite{Plack2018}. Of all the ear structures, the \textit{cochlea} is of greatest interest in forming sound representations as it is responsible for converting acoustics into human neural activity. The \textit{cochlea} is a coiled tube separated by two membranes, the \textit{Reissner's membrane} and the \textit{basilar membrane}. Simply, the \textit{basilar membrane} can be considered as a collection of band-pass filters which separate sounds into the spectral components. Overall, this is a brief summary of the primary mechanism that humans use to convert sound pressure into neural activity which we are attempting to emulate digitally.
 
@@ -41,27 +66,13 @@ In the brain, the \textit{cochlea} is not the end of auditory processing in the 
 \subsection{Echoic Memory}
 A sound's meaning rarely, if ever can be determined by a single frame. Instead, sounds can mean different things based on where they occur in relation to other sounds. Humans encode identical speech phonemes differently based on the temporal context \cite{Eggermont2001}. Thus memory in this domain is important to machine sound analysis as meaning is a function of the current moment of sound as well as past moments. \textit{Echoic memory} is the name given to auditory sensory memory found in humans. Echoic memory is critical in permitting listeners to integrate incoming information with past events. There is some disagreement on the duration of echoic memory in humans with some arguing ~250 ms and others ~4 seconds \cite{Wingfield2016}.
 
-\subsection{Previous Work}
-
-\subsection{Encoding}
-There have been several attempts at creating a compact and efficient encoding of audio conducive to classification training. The following is a brief overview of those that have found some success.
-
-The most common approach is to use Mel-Frequency Cepstrum Coefficients (MFCC) and statistical components of the audio signal like zero crossing rate and silence rate to form the feature vector for an auditory signal \cite{Roma2010}. MFCCs are popular in audio classification tasks as they use a spectrogram with a higher weighting on frequencies that humans are attuned to. The though is, if humans can discriminate with these features attenuated then a machine can also benefit from this representation. The statistical representations of audio aim to capture the temporal features of a signal as we know these are important to classification \cite{slaney1993importance}. These features are popular in audio classification because they are simple to obtain from audio clips and provide good performance on several off-the-shelf learners.
-
-Encoding the signals using deep neural networks is another popular approach. To do this a model with two discrete parts, encoder and decoder must be built. The model is trained with the goal of recreating the original signal and after training the encoder is split from the model. It is expected that the values given by the encoder are representative of the original signal. In audio, auto-encoders often use convolutional neural networks with the spectrogram. Convolutional auto-encoders have been useful in the visual domain and thus is expected to be as effective in audio, however audio is much more reliant on temporal features and thus this approach has middling success.
-
-To mitigate this encoding issue, recurrent neural networks are seeing more use. Long Short-Term Memory (LSTM) layers are becoming more prevalent for encoding time-sensitive signals into latent variables \cite{Meyer2017}. An LSTM layer is well-suited for use with time series data as it takes lags of important events in time series into account. Meyer found success in using a convolutional LSTM network to encode audio data that outperformed non-clustered data on a shallow neural network. Though, Meyer's approach doesn't appear to take overlapping sounds into account.
-
-\subsection{Retrieval}
-The common approach to content-based audio retrieval is query-by-example. In this system, the user uses an audio document to query and is presented with a list of audio documents that match some similarity heuristic. Similarity heuristics were studied extensively to improve efficiency and accuracy as this was the method of choice for some time. Wan and Lu ran a comparative study of popular features and heuristics for similarity search that demonstrate the shortcomings of these methods \cite{Wan2005}. Their results show low accuracy over datasets and slow execution times, especially when compared to deep learning techniques. Results like this led the field to largely abandon this approach, especially for large datasets.
-
-Turnbull et. al. presented a system for text query audio retrieval which automatically annotated documents in the dataset. This was accomplished by training a GMM for each word in the predefined set of words that the tags could be. This first attempt focused on music retrieval and as such the vocabulary was made up of genres, instruments, and other identifiable music features. The system works by annotating everything in the dataset and then ranking them. It had some success with well above random guessing accuracy and was therefore expanded upon. The second study replaced the music dataset with a sound effects set with a 348 word vocabulary. Again each vocabulary word had a GMM trained on it but in this study, the audio proved more difficult to classify \cite{Turnbull2007, Turnbull2008}.
-
-Chechik et. al. proposed a system using a traditional image-based retrieval method that is modified for use in the audio domain with text queries. They found great success in this approach and were able to outperform the current state-of-the-art when applied to both clean and noisy datasets. This is significant because they were able to not only outperform the other methods, but their method also did not require a set vocabulary for classification and could adapt to synonymous tags. It obtained an average precision of 27.5\% across the clean and noisy datasets with 3400 and 15800 documents, respectively. The total experimental time (training + test) was at maximum 6 hours, clearly making this tool more usable than past approaches but still not quite fast enough for quick exploration of data \cite{Chechik2008}.
-
-
 \section{Pipeline Overview}
 The basic approach is to represent the audio in a more differentiable way, filter with shallow neural networks, and finally classify with a probabilistic deep neural network.
+
+\begin{itemize}
+    \item Brief pipeline description
+    \item Pipeline figure
+\end{itemize}
 
 \subsection{Acoustic Features}
 First in the classification pipeline is an encoding of audio signals. Each audio file in the dataset is read in blocks of time with overlapping segments in an effort to have the data cover all audio objects. Blocks with no sound are discarded, this is done to reduce data size but also to avoid correlating silence to some class which can easily confuse the agent. Each block of audio then has its spectrogram computed from which the frequency features are extracted. In addition to the frequency features, temporal statistics of the raw audio is used to capture temporal properties of the signal. An LSTM auto-encoder is also used to extract relevant features from the spectrogram as described by Meyer \cite{Meyer2017}.
@@ -86,33 +97,23 @@ Deep Neural Networks (DNN) are employed as the next layer in the classification 
 \subsubsection{Specific Classifier}
 The final layer again uses DNNs but is trained to discriminate between the lowest level classes, which are the most difficult to discriminate between. These are the classification tasks that are at times difficult for humans to discriminate between. For example on the \textit{Animal Voices} side of the hierarchy, once a document is classified into a kind of animal it is classified into the specific kind of vocalization being made. This side of the hierarchy is not explained in as much depth by Gaver however for the purposes of this work we form this hierarchy. The \textit{Interacting Materials} side of the classifier has DNNs trained on the three classes used by Roma et. al.: vibrating solids, aerodynamic sounds, and liquid sounds \cite{Roma2010}. It is hypothesized that these classifiers will more easily learn the nuances between similar sounds and be able to achieve higher accuracy than predecessors.
 
-\subsection{Retrieval}
-The mechanism for document retrieval is straightforward. A text query of the sound the user wants to retrieve is entered and a ranked list of documents is returned from the dataset. The rankings are given by the probability of a document belonging to the queried class. This has benefits over executing discrete predictions and returning the result as the probability is an analog for the confidence of a sound object existing in documents. This means that the results to some rank k will have a high confidence of containing the object. In the future, natural language processing will be applied to the queries to allow queries to be natural.
-
 \section{Representation}
 
 \subsection{Gaver Taxonomy}
 
 \subsection{Feature Extraction}
-
 \begin{itemize}
-    \item Highlight Limitations of approach
-    \item Expand upon limitations
+    \item Highlight limits of Gaver
+    \item Expand limits of Gaver
 \end{itemize}
 
 \section{Classification}
-
 \subsection{High Level}
-    \textit{The why of it working}
-    
+
 \subsection{Low Level}
 
-\section{Retrieval}
-
-\begin{itemize}
-    \item Technique
-    \item Look for differences and why mine is better
-\end{itemize}
+\subsection{Retrieval}
+The mechanism for document retrieval is straightforward. A text query of the sound the user wants to retrieve is entered and a ranked list of documents is returned from the dataset. The rankings are given by the probability of a document belonging to the queried class. This has benefits over executing discrete predictions and returning the result as the probability is an analog for the confidence of a sound object existing in documents. This means that the results to some rank k will have a high confidence of containing the object. In the future, natural language processing will be applied to the queries to allow queries to be natural.
 
 \section{Implementation}
 
