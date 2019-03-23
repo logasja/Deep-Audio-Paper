@@ -35,12 +35,16 @@ In all, the contributions this work provides is as follows:
 \end{itemize}
 
 \subsection{Machine Hearing Principles}
-\begin{itemize}
-    \item Briefly explain machine hearing in context.
-    \item Explain why it is best to model human hearing.
-    \item Explain desired system structure (ala Lyon)
-    \item Describe some about Neural Coding + Echoic Memory
-\end{itemize}
+
+Much like computer vision, machine hearing is a field attempting to give autonomous agents the ability to use a sense in much the same way as humans. However, this field has lagged behind computer vision due to its seeming lack of general applicability. This is shown by the wealth of specialized music and speech sound analyses, with more general problems being ignored. Thus, machine hearing is less the study of recognizing specific events in audio but instead what representations and structures allow for a generalized model of sound. Lyon argues for a specific structure to machine hearing systems with four parts \cite{lyon_machine_2010}.
+
+The first module is a peripheral analyzer, based on the \textit{cochlea} as most other outer-ear structures are at the mercy of the recording medium (e.g. the microphone). The \textit{cochlea} is responsible for forming sound representations. The \textit{cochlea} is responsible for converting acoustics into neural signals. It is a coiled tube separated by two membranes, the \textit{Reissner's membrane} and the \textit{basilar membrane} \cite{Plack2018}. Simply, the \textit{basilar membrane} can be considered as a collection of band-pass filters, separating sounds into spectral components. These components are then processed by brain structures that convert the waveform representation to something more usable.
+
+This next module is where a large portion of the final representation is formed. It creates image representations of the audio, modeling the concept of \textit{echoic memory}. The perception of sound depends on what comes before and occurs after a sample of audio. Thus memory in this domain is important to perception. \textit{Echoic memory} is the name given to human auditory sensory memory. It is critical in permitting listeners to integrate incoming information with past events. However, among the literature there is some disagreement on the duration of the memory with some arguing ~250 ms and others ~4 seconds \cite{Wingfield2016}. Though it is difficult to achieve good results with only the image representation, and as such another module is often used to extract features.
+
+A feature extraction module is then used to pull a compact and meaningful representation from the images formed in the previous module. This module most closely matches the \textit{neural code} of human audio perception which form the interface between the sound and its conscious perception. It should be noted, the human processing chain is still mostly unknown and much of what we do know is speculative. Though, it is hypothesized that multiple processes occur in sequence to prepare the information for perception \cite{Eggermont2001}. It is likely these processing steps make actual perception less computationally expensive. The outcome of this module is likely the most important as it determines the performance and efficiency of the decision module.
+
+The decision module takes in the representation formed by the previous modules and maps it to some decision needed to be made. This module is analogous to conscious perception in humans. It can vary between very simple like a single perceptron to very complex like a deep neural network.
 
 \subsection{Spectrogram-Based Machine Hearing}
 \begin{itemize}
@@ -56,15 +60,6 @@ In all, the contributions this work provides is as follows:
     \item Audio features + how they apply
     \item My approach + some teaser
 \end{itemize}
-
-\subsection{Human Hearing Mechanisms}
-As we desire to model the human perception systems as closely as possible, it is instructive to research the anatomy of the ear. Human hearing starts at the outer ear with the \textit{pinna} acting as a kind of preprocessor that modifies the sound depending on its direction. Sound then travels through the ear canal which further modifies the spectral properties by resonating in a way that amplifies frequencies in the 1-6 kHz range. As the end of the ear canal is reached, the sound waves excite the eardrum that the \textit{ossicles} are attached which transmit the pressure from the ear canal to the \textit{cochlea} in the inner ear \cite{Plack2018}. Of all the ear structures, the \textit{cochlea} is of greatest interest in forming sound representations as it is responsible for converting acoustics into human neural activity. The \textit{cochlea} is a coiled tube separated by two membranes, the \textit{Reissner's membrane} and the \textit{basilar membrane}. Simply, the \textit{basilar membrane} can be considered as a collection of band-pass filters which separate sounds into the spectral components. Overall, this is a brief summary of the primary mechanism that humans use to convert sound pressure into neural activity which we are attempting to emulate digitally.
-
-\subsection{Neural Coding}
-In the brain, the \textit{cochlea} is not the end of auditory processing in the mind before conscious perception takes place. Several processes form a \textit{neural code} that represents the interface between the stimulus of the sound and its perception. This process chain is still relatively unknown and much of what we do know is speculative. Currently it is believed that five complex processes occur in sequence that prepare the information for perception \cite{Eggermont2001}. These indicate a form of coding of incoming frequency spectra can make sound impressions less expensive to process in neural networks. There have been several attempts at modeling these embeddings using autoencoders in the hope to find commonalities in frequency spectra representing meaningful features of sounds.
-
-\subsection{Echoic Memory}
-A sound's meaning rarely, if ever can be determined by a single frame. Instead, sounds can mean different things based on where they occur in relation to other sounds. Humans encode identical speech phonemes differently based on the temporal context \cite{Eggermont2001}. Thus memory in this domain is important to machine sound analysis as meaning is a function of the current moment of sound as well as past moments. \textit{Echoic memory} is the name given to auditory sensory memory found in humans. Echoic memory is critical in permitting listeners to integrate incoming information with past events. There is some disagreement on the duration of echoic memory in humans with some arguing ~250 ms and others ~4 seconds \cite{Wingfield2016}.
 
 \section{Pipeline Overview}
 The basic approach is to represent the audio in a more differentiable way, filter with shallow neural networks, and finally classify with a probabilistic deep neural network.
@@ -86,7 +81,7 @@ First in the classification pipeline is an encoding of audio signals. Each audio
     \label{fig:NetHier}
 \end{figure}
 
-The proposed classification model is illustrated in Figure ~\ref{fig:NetHier}. At the top level are the most general descriptors of a sound and are thought to be easily classified. A shallow neural network is used to allow the most obviously unrelated documents to be discarded early during querying. Subsequent networks become more and more specialized as the discrimination task becomes more difficult. The networks used are probabilistic which allows for uncertainty to be quantified in the results as well as provide a clear heuristic for scoring results. Neural networks are used here as there has been much work to make prototyping networks faster and the mature ecosystem of GPU accelerated evaluation and training. In this work we use Keras with a Tensorflow backend \cite{Abadi2016, chollet2015keras}.
+The proposed classification model is illustrated in Figure ~\ref{fig:NetHier}. At the top level are the most general descriptors of a sound and are thought to be easily classified. A shallow neural network is used to allow the most obviously unrelated documents to be discarded early during querying. Subsequent networks become more and more specialized as the discrimination task becomes more difficult. The networks used are probabilistic which allows for uncertainty to be quantified in the results as well as provide a clear heuristic for scoring results. Neural networks are used here as there has been much work to make prototyping networks faster and the mature ecosystem of GPU accelerated evaluation and training. In this work we use Keras with a Tensorflow back-end \cite{Abadi2016, chollet2015keras}.
 
 \subsubsection{Top Level Classifier}
 To emulate the Gaver theory of human auditory perception, a binary neural network classifier is trained with examples of \textit{Interacting Materials} and \textit{Animal Voices}. Note that \textit{Animal Voices} includes that of humans and that music is excluded from this classification task. Shallow neural networks are used for the top level to reduce execution and training time. As the first layer of the classifier, it allows the retrieval task to discard clearly irrelevant files. By doing so, subsequent classifiers are able to be much more expensive to discriminate between hard to classify items.
