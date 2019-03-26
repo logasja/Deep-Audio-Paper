@@ -12,14 +12,6 @@ Content-based retrieval has been investigated thoroughly in image datasets with 
 
 Here, I propose creating a model based on a taxonomy of human audio perception. As mentioned before, audio signals can contain a large amount of information but this information is mostly from combinations of the low level intensity, spectral, and statistical properties. These properties form the base of a hierarchical representation of sound that is combined to form temporal properties which then are made into cognitive properties. Perception is of interest as the human capacity continues to exceed that of machine listeners, thus it is hypothesized better performance can be gained from understanding and modelling human systems. This hypothesis has led to psychological and physiological studies into how and why human perception is accurate and how it audio can be optimally encoded \cite{Gaver1993, Eggermont2001, slaney1993importance, Piazza2013}.
 
-% \begin{wrapfigure}{l}{0.21\textwidth}
-%     \begin{center}
-%         \includegraphics[width=0.2\textwidth]{figures/MDN.png}
-%     \end{center}
-%     \caption{The Mixture Density Network has a feed-forward neural network with output of mixture density model parameters. The mixture model is conditional probability density function of the target.}
-%     \label{fig:MDN}
-% \end{wrapfigure}
-
 In all, the contributions this work provides is as follows:
 \begin{itemize}
     \item Present an audio representation based on human perception of sound.
@@ -48,21 +40,41 @@ The decision module takes in the representation formed by the previous modules a
 
 \subsection{Spectrogram-Based Machine Hearing}
 \begin{itemize}
+    \item How this fits into Neural Coding and Echoic Memory
     \item CNN approach
     \item Image retrieval (PAMIR approach)
-    \item How this fits into Neural Coding and Echoic Memory
 \end{itemize}
+
+Due to the good performance of content retrieval systems in the visual domain, several researchers attempted to use these approaches in the audio domain. This approach combines the neural coding and echoic memory portions of hearing. Instead of having a separate feature extraction module, a model is trained directly on the spectral image.
+
+\begin{figure}[!tbp]
+    \centering
+    \subfloat[Noisy]{\includegraphics[width=0.4\textwidth]{figures/noisy_audio.jpg}\label{fig:noisy_audio}}
+    \hfill
+    \subfloat[Clean]{\includegraphics[width=0.4\textwidth]{figures/clean_audio.jpg}\label{fig:clean_audio}}
+    \caption{Spectrograms illustrating the difference between clean and noisy audio when converted to visual domain.}
+    \label{fig:noisy_audio_cmpr}
+\end{figure}
+
+Translating audio to a visual domain has seen some success, especially in cases where audio events are isolated as represented in \ref{fig:noisy_audio_cmpr}. Unfortunately in real-world situations, audio recordings usually have multiple audio sources in them often with overlapping frequencies. This is due to the "transparency" of audio, with spectral images being analogous to placing several transparent photos over one another. A Convolutional neural network is the most often applied learner for image classification and as such has often been applied to spectrogram images. However, these approaches struggle to break 70\% accuracy even with complex ensembles of networks \cite{xu_large-scale_2018, piczak_environmental_2015}.
+
+In an attempt to capitalize on image retrieval success, Chechik et al. used spectrogram imagery to perform unstructured audio retrieval with passive-aggressive model for image retrieval (PAMIR) \cite{Chechik2008}. This work used probabilistic confidence to rank audio documents on relevance to a text query. When tested against the Freesound dataset though it saw no improvement over GMM or SVM using traditional audio features. The average precision of the classifier was 0.27 with a max of about 0.55.
 
 \subsection{Waveform-Based Machine Hearing}
 \begin{itemize}
-    \item Transparency of Audio
-    \item RNN approaches
     \item Audio features + how they apply
+    \item RNN approaches
     \item My approach + some teaser
 \end{itemize}
 
 \section{Pipeline Overview}
-The basic approach is to represent the audio in a more differentiable way, filter with shallow neural networks, and finally classify with a probabilistic deep neural network.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.49\textwidth]{figures/pipeline.jpg}
+    \caption{Pipeline for the proposed approach}
+    \label{fig:pipeline}
+\end{figure}
 
 \begin{itemize}
     \item Brief pipeline description
@@ -73,13 +85,6 @@ The basic approach is to represent the audio in a more differentiable way, filte
 First in the classification pipeline is an encoding of audio signals. Each audio file in the dataset is read in blocks of time with overlapping segments in an effort to have the data cover all audio objects. Blocks with no sound are discarded, this is done to reduce data size but also to avoid correlating silence to some class which can easily confuse the agent. Each block of audio then has its spectrogram computed from which the frequency features are extracted. In addition to the frequency features, temporal statistics of the raw audio is used to capture temporal properties of the signal. An LSTM auto-encoder is also used to extract relevant features from the spectrogram as described by Meyer \cite{Meyer2017}.
 
 \subsection{Classification Model}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.48\textwidth]{figures/NeuralNetHierarchy.png}
-    \caption{Overview of the classification model}
-    \label{fig:NetHier}
-\end{figure}
 
 The proposed classification model is illustrated in Figure ~\ref{fig:NetHier}. At the top level are the most general descriptors of a sound and are thought to be easily classified. A shallow neural network is used to allow the most obviously unrelated documents to be discarded early during querying. Subsequent networks become more and more specialized as the discrimination task becomes more difficult. The networks used are probabilistic which allows for uncertainty to be quantified in the results as well as provide a clear heuristic for scoring results. Neural networks are used here as there has been much work to make prototyping networks faster and the mature ecosystem of GPU accelerated evaluation and training. In this work we use Keras with a Tensorflow back-end \cite{Abadi2016, chollet2015keras}.
 
