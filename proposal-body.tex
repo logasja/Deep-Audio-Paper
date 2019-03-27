@@ -76,10 +76,7 @@ In an attempt to capitalize on image retrieval success, Chechik et al. used spec
     \label{fig:pipeline}
 \end{figure}
 
-\begin{itemize}
-    \item Brief pipeline description
-    \item Pipeline figure
-\end{itemize}
+This approach closely follows Lyon's structure of machine hearing systems. Audio goes through each stage sequentially with portions of it optimized for parallel execution. The pipeline first converts the waveform to a gammatone spectrogram of a given time window. Features are then extracted from this representation using standard extraction techniques to get a combination of spectral and temporal features. Finally, a hierarchical ensemble of probabilistic classifiers is trained to create the model.
 
 \subsection{Acoustic Features}
 First in the classification pipeline is an encoding of audio signals. Each audio file in the dataset is read in blocks of time with overlapping segments in an effort to have the data cover all audio objects. Blocks with no sound are discarded, this is done to reduce data size but also to avoid correlating silence to some class which can easily confuse the agent. Each block of audio then has its spectrogram computed from which the frequency features are extracted. In addition to the frequency features, temporal statistics of the raw audio is used to capture temporal properties of the signal. An LSTM auto-encoder is also used to extract relevant features from the spectrogram as described by Meyer \cite{Meyer2017}.
@@ -99,7 +96,19 @@ The final layer again uses DNNs but is trained to discriminate between the lowes
 
 \section{Representation}
 
-\subsection{Gaver Taxonomy}
+\subsection{Taxonomic Classification}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.49\textwidth]{figures/sound_hierarchy.jpg}
+    \caption{A hierarchical view of the proposed sound taxonomy.}
+    \label{fig:sound_hierarchy}
+\end{figure}
+
+In the audio domain, it is desirable to train specialized models instead of investigating general models. As an example, good results have been achieved with machine learning models in tasks like speech recognition or music genre recognition with features specifically chosen for the task \cite{Campbell1997, tzanetakis_musical_2002}. However, these approaches are not applicable to the general case of audio recognition. Here, we propose using and extending upon an ecological taxonomy of sound for our recognition model in an effort to make it generalizable to diverse datasets.
+
+In his work, Gaver formed a taxonomy of sound based on human perception. His hypothesis is that in general listening tasks humans use the acoustic properties of sound to identify the sources. This hypothesis provides a generalization useful for searching for sounds. His work focuses on the interaction of elements in the world to determine how sounds are formed and how those sounds influence our perception of what they come from \cite{Gaver1993}. As such, the taxonomy only focuses on interacting materials, excluding music or animal sounds.
+
+Lewicki's work aids in gaining a better understanding of how animal sounds will fit into the taxonomy \cite{lewicki_efficient_2002}. It is noted by Lewicki that environmental sounds have little to no harmonic structure while animal vocalizations are normally harmonic. He hypothesizes that this has intentionally evolved to allow for easier discrimination from environmental sounds when communicating. However, Lewicki posits that human speech is structurally different from normal animal vocalizations in that it contains a mix of harmonic and non-harmonic structures. This work provides guidance for the excluded taxonomic branch of sound containing animal vocalizations.
 
 \subsection{Feature Extraction}
 \begin{itemize}
