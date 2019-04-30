@@ -1,101 +1,82 @@
-#
-# Makefile for acmart package
-#
-# This file is in public domain
-#
-# $Id: Makefile,v 1.10 2016/04/14 21:55:57 boris Exp $
-#
+# Makefile for LaTeX files
 
-PACKAGE=acmart
+LATEX	= xelatex
+BIBTEX	= bibtex
+MAKEINDEX = makeindex
+PANDOC = pandoc
 
-SAMPLES = \
-	sample-manuscript.tex \
-	sample-acmsmall.tex \
-	sample-acmlarge.tex \
-	sample-acmtog.tex \
-	sample-sigconf.tex \
-	sample-sigconf-authordraft.tex \
-	sample-sigconf-xelatex.tex \
-	sample-sigplan.tex \
-	sample-sigchi.tex \
-	sample-sigchi-a.tex
+RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
+RERUNBIB = "No file.*\.bbl|Citation.*undefined"
+MAKEIDX = "^[^%]*\\makeindex"
+MPRINT = "^[^%]*print"
+USETHUMBS = "^[^%]*thumbpdf"
 
+SRC	:= $(shell egrep -l '^[^%]*\\begin\{document\}' *.tex)
+BIBFILE := $(shell perl -ne '($$_)=/^[^%]*\\bibliography\{(.*?)\}/;@_=split /,/;foreach $$b (@_) {print "$$b.bib "}' $(SRC))
 
-PDF = $(PACKAGE).pdf ${SAMPLES:%.tex=%.pdf} acmguide.pdf
+PDFPICS :=
+#PDFPICS := $(shell perl -ne '@foo=/^[^%]*\\(includegraphics)(\[.*?\])?\{(.*?)\}/g;if (defined($$foo[2])) { if ($$foo[2] =~ /.pdf$$/) { print "$$foo[2] "; } else { print "$$foo[2].pdf "; }}' *.tex)
+DEP	= *.tex
 
-all:  ${PDF}
+TRG	= $(SRC:%.tex=%.pdf)
 
-
-%.pdf:  %.dtx   $(PACKAGE).cls
-	pdflatex $<
-	- bibtex $*
-	pdflatex $<
-	- makeindex -s gind.ist -o $*.ind $*.idx
-	- makeindex -s gglo.ist -o $*.gls $*.glo
-	pdflatex $<
-	while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log) \
-	do pdflatex $<; done
+COPY = if test -r $(<:%.tex=%.toc); then cp $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); fi 
+RM = rm -f
+OUTDATED = echo "EPS-file is out-of-date!" && false
 
 
-acmguide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
-	pdflatex -jobname acmguide $(PACKAGE).dtx
-	- bibtex acmguide
-	pdflatex -jobname acmguide $(PACKAGE).dtx
-	while ( grep -q '^LaTeX Warning: Label(s) may have changed' acmguide.log) \
-	do pdflatex -jobname acmguide $(PACKAGE).dtx; done
+all 	: $(TRG)
 
-%.cls:   %.ins %.dtx
-	pdflatex $<
+define run-latex
+	  $(COPY);$(LATEX) $<
+	  egrep -q $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%);$(COPY);$(LATEX) $<) ; true
+	  egrep -c $(RERUNBIB) $(<:%.tex=%.log) && ($(BIBTEX) $(<:%.tex=%);$(COPY);$(LATEX) $<) ; true
+	  egrep -q $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) ; true
+	  egrep -q $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) ; true
+	  if cmp -s $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); then true ;else $(LATEX) $< ; fi
+	  $(RM) $(<:%.tex=%.toc.bak)
+	  # Display relevant warnings
+	  egrep -i "(Reference|Citation).*undefined" $(<:%.tex=%.log) ; true
+endef
 
-%.pdf:  %.tex   $(PACKAGE).cls ACM-Reference-Format.bst
-	pdflatex $<
-	- bibtex $*
-	pdflatex $<
-	pdflatex $<
-	while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log) \
-	do pdflatex $<; done
+$(TRG)	: %.pdf : %.tex $(DEP) $(PDFPICS) $(BIBFILE)
+	  @$(run-latex)
 
-sample-sigconf-xelatex.pdf:  sample-sigconf-xelatex.tex   $(PACKAGE).cls ACM-Reference-Format.bst
-	xelatex $<
-	- bibtex $*
-	xelatex $<
-	xelatex $<
-	while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log) \
-	do xelatex $<; done
+clean	:
+	  -rm -f $(TRG) $(PSF) $(PDF) $(TRG:%.pdf=%.aux) $(TRG:%.pdf=%.bbl) $(TRG:%.pdf=%.blg) $(TRG:%.pdf=%.log) $(TRG:%.pdf=%.out)
 
-sample-manuscript.pdf \
-sample-acmsmall.pdf \
-sample-acmlarge.pdf \
-sample-acmtog.pdf: samplebody-journals.tex
+.PHONY	: all show clean ps pdf showps text stylecheck spellcheck
 
-sample-sigconf.pdf \
-sample-sigconf-authordraft.pdf \
-sample-sigconf-xelatex.pdf \
-sample-sigplan.pdf \
-sample-sigchi.pdf: samplebody-conf.tex
+view:
+	acroread $(PDF)
 
+osx:
+	open $(PDF)
 
-.PRECIOUS:  $(PACKAGE).cfg $(PACKAGE).cls
+text: *.tex
+	$(PANDOC) --wrap=none -s $< -o $@
 
+doc: *.tex
+	$(PANDOC) --wrap=none -s $< -o $@
 
-clean:
-	$(RM)  $(PACKAGE).cls *.log *.aux \
-	*.cfg *.glo *.idx *.toc \
-	*.ilg *.ind *.out *.lof \
-	*.lot *.bbl *.blg *.gls *.cut *.hd \
-	*.dvi *.ps *.thm *.tgz *.zip *.rpi
+combined:
+	pdfunite response.pdf logging.pdf combined.pdf
 
-distclean: clean
-	$(RM) $(PDF) *-converted-to.pdf
+# Check style:
+stylecheck:
+	printf "weasel words: "
+	sh ./scripts/weasel *.tex
+	printf "\npassive voice: "
+	sh ./scripts/passive *.tex
+	printf "\nduplicates: "
+	perl ./scripts/dups *.tex
+	printf "\ndone\n"
 
-#
-# Archive for the distribution. Includes typeset documentation
-#
-archive:  all clean
-	COPYFILE_DISABLE=1 tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' --exclude '*.tgz' --exclude '*.zip'  --exclude CVS --exclude '.git*' $(PACKAGE); mv ../$(PACKAGE).tgz .
+# Check spelling with aspell
+spellcheck:
+	find . -name "*.tex" -exec aspell --lang=en --mode=tex --dont-suggest --personal=./.aspell.en.pws check "{}" \;
 
-zip:  all clean
-	zip -r  $(PACKAGE).zip * -x '*~' -x '*.tgz' -x '*.zip' -x CVS -x 'CVS/*'
-
-documents.zip: all
-	zip $@ acmart.pdf acmguide.pdf sample-*.pdf *.cls *.bst
+######################################################################
+# Define rules for PDF source files.
+%.pdf: %.eps
+	epstopdf $< > $(<:%.eps=%.pdf)

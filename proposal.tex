@@ -1,92 +1,239 @@
-\documentclass[sigchi]{acmart}
+\documentclass{vldb}
 % \documentclass[sigchi]{acmart}
 
-\usepackage{booktabs} % For formal tables
-\usepackage{graphicx}
+\newcommand{\paperTitle}{Efficient Content-Based Audio Retrieval}
+\newcommand{\paperKeywords}{Audio Retrieval, Deep Learning}
+\newcommand{\paperAuthors}{}
+
+\vldbTitle{\paperTitle}
+\vldbAuthors{\paperAuthors}
+\vldbDOI{https://doi.org/10.14778/xxxxxxx.xxxxxxx}
+\vldbVolume{xx}
+\vldbNumber{yyy}
+\vldbYear{2019}
+
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
+
+%\usepackage[square,numbers]{natbib}
+\usepackage[hyphens]{url}
+\usepackage{xstring}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{linkcolor}{HTML}{647382}
+\definecolor{citecolor}{HTML}{647382} %
+\definecolor{urlcolor}{rgb}{0.4,0.2,0.2}
+\definecolor{sqlcolor}{HTML}{965d67}
+\definecolor{smtcolor}{HTML}{5d968c}
+
+\usepackage[breaklinks]{hyperref}
+\hypersetup{%
+    pdfauthor = {\paperAuthors},
+    pdftitle = {\paperTitle},
+    pdfkeywords = {\paperKeywords},
+    bookmarksopen = {true},
+    colorlinks=true,
+    citecolor={urlcolor},
+    linkcolor={linkcolor},
+ 	urlcolor={citecolor},
+    pdfborder={ 0 0 0 }
+}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{amsmath,amsopn,amssymb}
+\usepackage{listings}
+\usepackage[caption=false]{subfig}
+\usepackage{endnotes,microtype,xspace,graphicx,fancyvrb,multirow}
+\usepackage{supertabular,booktabs}
+\usepackage{array,underscore,relsize}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{fancyhdr,lastpage}
+\usepackage{enumitem}
+\usepackage{balance}
+\usepackage{booktabs}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage[scaled]{beramono}
+\usepackage{tabularx}
 \usepackage{wrapfig}
-\usepackage{subfig}
+
+% stmaryrd: more math fonts (namely mathbb)
+\usepackage{stmaryrd}
+\usepackage{ltablex}
+\usepackage{mathtools}
+
+% algorithm2e: algorithms
+\usepackage{amsmath}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{enumitem}
+\usepackage{algpseudocode}
+
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+
+% cleveref goes last to get alg name right
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\widowpenalty10000
+\clubpenalty10000
+
+% captions
+\captionsetup{font=small}
+\captionsetup{labelfont=bf}
+\captionsetup[subfloat]{font=scriptsize}
+\captionsetup[subfloat]{farskip=5pt}
+\captionsetup[subfloat]{captionskip=1pt}
+\captionsetup[table]{belowskip=0pt}
+
+\captionsetup[table]{position=t}
+\captionsetup[table]{skip=\medskipamount}
+
+\setlength{\textfloatsep}{0.1cm}
+
+% captions placed on the bottom for figures
+\captionsetup[figure]{position=b}
+%figures and tables numbered by section
+%\captionsetup{figurewithin=section}
+%\captionsetup{tablewithin=section}
+
+% % Squished Lists
+\newcommand{\squishitemize}{
+ \begin{list}{$\bullet$}
+  { \setlength{\itemsep}{0pt}
+     \setlength{\parsep}{3pt}
+     \setlength{\topsep}{3pt}
+     \setlength{\partopsep}{0pt}
+     \setlength{\leftmargin}{1.95em}
+     \setlength{\labelwidth}{1.5em}
+     \setlength{\labelsep}{0.5em} } }
+
+\newcounter{Lcount}
+\newcommand{\squishlist}{
+    \begin{list}{\arabic{Lcount}. }
+   { \usecounter{Lcount}
+        \setlength{\itemsep}{0pt}
+        \setlength{\parsep}{3pt}
+        \setlength{\topsep}{3pt}
+        \setlength{\partopsep}{0pt}
+        \setlength{\leftmargin}{2em}
+        \setlength{\labelwidth}{1.5em}
+        \setlength{\labelsep}{0.5em} } }
+
+\newcommand{\squishend}{\end{list}}
+
+\newcommand{\eg}{e.g.}
+\newcommand{\ie}{i.e.}
+
+\newcommand{\PP}[1]{
+%\vspace{4px}
+\noindent{\bf{#1}.}\xspace
+}
+
+% per-author notes:
+% ref. http://en.wikibooks.org/wiki/LaTeX/Colors
+\newcommand{\PJ}[1]{\textcolor{Blue}{PJ: #1}}
+\newcommand{\AJ}[1]{\textcolor{Red}{AJ: #1}}
+
+%% ==================================================================
+%% MAGIC FIGURE SPACING
+%% ==================================================================
+
+% Single-Column Figures
+\setlength{\floatsep}{5pt}
+% \setlength{\textfloatsep}{5pt}
+\setlength{\abovecaptionskip}{0.5em}
+\setlength{\belowcaptionskip}{0.5em}
+
+%% Multi-Column Figures
+\setlength{\dbltextfloatsep}{5pt}
+\setlength{\dblfloatsep}{5pt}
+
+% Subfigures
+% \setlength{\subfigcapskip}{0in}
+% \setlength{\subfigtopskip}{0pt}
+% \setlength{\subfigbottomskip}{2pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\thepage}
+
+\newcommand{\sys}{\mbox{\textsc{Echo}}\xspace}
+
+\newcommand*{\refname}{Bibliography}
+
 \graphicspath{ {./figures/} }
 
-% Copyright
-% \setcopyright{none}
-%\setcopyright{acmcopyright}
-%\setcopyright{acmlicensed}
-\setcopyright{rightsretained}
-% \setcopyright{usgov}
-%\setcopyright{usgovmixed}
-%\setcopyright{cagov}
-% \setcopyright{licensedcagov}
-%\setcopyright{cagovmixed}
-%\setcopyright{licensedothergov}
-
-% % DOI
-% \acmDOI{}
-
-% % ISBN
-% \acmISBN{}
-
-% %Conference
-% \acmConference[]{}{}{}
-% \acmYear{}
-% \copyrightyear{}
-
-% \acmPrice{0}
-
+\title{\paperTitle\vspace*{-0.15in}}
+\author{\paperAuthors}
 
 \begin{document}
-\title{Efficient Content-Based Audio Retrieval}
 
-\author{Jacob Logas}
-\orcid{}
-\affiliation{%
-  \institution{Georgia Institute of Technology}
-  \streetaddress{221 Bobby Dodd Way}
-  \city{Atlanta}
-  \state{Georgia}
-  \postcode{30322}
+\newcommand{\mail}[1]{\href{mailto:#1}{#1}}
+
+\title{\paperTitle}
+
+\author{ \def\arraystretch{1}
+\begin{tabular}{ cc }
+Jacob Logas  & Joy Arulraj \\
+\multicolumn{1}{c}{\mail{logasja@gatech.edu}} &
+\multicolumn{1}{c}{\mail{arulraj@gatech.edu}} \\
+\end{tabular}
 }
-\email{logasja@gatech.edu}
-
-% The default list of authors is too long for headers.
-\renewcommand{\shortauthors}{J. Logas}
-
-
-\begin{abstract}
-    It has never been easier to collect terabytes of data with sensors becoming smaller and embedded systems becoming more efficient. This influx of data has the potential to lead to scientific discoveries in all domains. However, many researchers still need to manually explore the dataset and label class instances. Efforts have been made to automate this process in large datasets, though it has largely been in the image and video domain with audio largely ignored. Here, we use domain knowledge of the structure of audio and human perception to retrieve documents from the dataset containing instances of the class with high probability. Probabilistic classification techniques are employed in a hierarchical structure to accomplish this goal. This work shows improvement over using image retrieval techniques in both speed and performance. With a more performant system, large unstructured audio datasets will be more accessible for exploration by researchers.
-\end{abstract}
-
-%
-% The code below should be generated by the tool at
-% http://dl.acm.org/ccs.cfm
-% Please copy and paste the code instead of the example below.
-%
-\begin{CCSXML}
-  <ccs2012>
-  <concept>
-  <concept_id>10002951.10003317.10003371.10003386.10003389</concept_id>
-  <concept_desc>Information systems~Speech / audio search</concept_desc>
-  <concept_significance>500</concept_significance>
-  </concept>
-  </ccs2012>
-\end{CCSXML}
-  
-\ccsdesc[500]{Information systems~Speech / audio search}
-
-
-\keywords{ACM proceedings}
-
-% \begin{teaserfigure}
-%   \includegraphics[width=\textwidth]{sampleteaser}
-%   \caption{This is a teaser}
-%   \label{fig:teaser}
-% \end{teaserfigure}
-
 
 \maketitle
 
-\input{proposal-body}
+\begin{abstract}
+The integration of microphones in smartphones and wearables has led to 
+an increase in the volume of human-generated audio recordings.
+Similarly, the advent of autonomous wireless recording devices has led to 
+an increase in the volume of animal-generated audio recordings.
+Given the shrinking cost of data storage, it is now easy and inexpensive 
+to capture and store a large database of audio recordings.
+The information recorded in such a database would be invaluable if an user 
+can efficiently search the contents of the database.
 
-\bibliographystyle{ACM-Reference-Format}
+Researchers have designed audio data management systems for automatically
+finding recordings that are relevant to an user's search query.
+However, the state-of-the-art approach for automated content-based audio
+retrieval suffers from two limitations.
+First, its application of image-centric retrieval techniques to audio
+spectrograms limits accuracy, thereby restricting the efficacy of 
+searching the database.
+Second, it employs a computationally-expensive classical machine learning 
+model that restricts the efficiency of search pipeline.
+
+This paper makes the case for an alternate approach for content-based audio
+retrieval using text queries.
+The key idea is to use domain knowledge of the structure of audio and 
+human perception to retrieve relevant recordings with high probability.
+We have implemented our audio-centric representation, classification, and
+retrieval techniques in \sys.
+Our evaluation shows that \sys is 5$\times$ faster than the state-of-the-art 
+system by virtue of being designed for audio recordings instead of images.
+We anticipate that \sys will allow an user to effectively and efficiently 
+explore large unstructured audio datasets.
+\end{abstract}
+
+\input{introduction.tex}
+\input{motivation.tex}
+\input{representation.tex}
+\input{classification.tex}
+\input{retreival.tex}
+\input{evaluation.tex}
+\input{futurework.tex}
+
+%% ==================================================================
+%% BIBLIOGRAPHY
+%% ==================================================================
+\newpage
+
+\bibliographystyle{abbrv}
+\small
+\raggedright
 \bibliography{references}
 
 \end{document}

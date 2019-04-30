@@ -1,0 +1,88 @@
+\section{Introduction}
+
+The audible world holds much information, often information that we as humans
+either cannot hear or ignore in favor for other sensory cues. Through audio
+alone, machine learning (ML) models have been able to accurately determine 
+the inner state of an animal or a human or even an environment, 
+a task which is often accomplished through visual cues~\cite{Farago2010,
+schuller-acoustic-2009,Eronen2006}. 
+
+Over the last decade, audio has become easier to collect in environments ranging
+from in-home microphones in intelligent assistants to wireless recording 
+wearables in an ocean setting~\cite{kohlsdorf-underwater-2013,Lane2015,
+Choudhury2008}.
+This is in part a consequence of embedded systems becoming smaller and more
+efficient as well as improvements in the quality of miniature
+microphones\AJ{Cite}.
+This increase of audio sources has led to an increase in the volume of audio
+recordings. Given the shrinking cost of data storage, it is now easy and
+inexpensive to capture and store a large database of recordings.
+The information recorded in such a database would be invaluable if an user 
+can efficiently search the contents of the database.
+
+%In human speech, speaker discrimination is also possible
+%and has found its way into several intelligent assistants \cite{Campbell1997}.
+%Finally, perhaps the best known and most widely studied application for audio
+% is obtaining textual representations of speech \cite{Rabiner1989}. These
+%applications are unlikely the limit of what we can glean from audio data and
+%with audio recording devices becoming more ubiquitous and cheaper than imagery
+%collection, we are obtaining more audio from a wider variety of places.
+
+A na\"ive technique for content-based audio retrieval (CBAR) consists of
+manually labeling each recording. 
+The limitations of this technique are twofold.
+First, the number of man-hours required for labeling increases along with the
+size of the database.
+Second, a manual labeling process can be error-prone resulting in data
+being mislabeled or entirely overlooked~\cite{Bardeli2009,Rong2018}. 
+
+A more scalable technique requires the user to only label a subset of the
+database.
+With this CBAR technique, the user is presented with statistically significant
+examples that they may have previously missed\AJ{Cite}.
+The audio database management system (DBMS) uses exemplars of the 
+user-specified recording to find other similar recordings in the database
+using a \textit{similarity search} algorithm.
+This technique is restrictive in two ways.
+First, it requires an exemplar of all desired audio segments which may defeat
+the purpose of searching the database and does not support exploratory data
+analysis. 
+Second, the DBMS must check the similarity of every recording in the database.
+The recent surge in the volume of generated audio data has led to an increase 
+in the size of audio databases. This technique does not scale to such 
+databases due to the computational cost of the similarity search algorithm.
+
+To address these limitations of traditional CBAR techniques, researchers have
+proposed an alternate ML model that leverages a compact data
+representation~\cite{Chechik2008}. This technique consists of transforming
+audio recordings to images via spectroscopy and then applying the ML for
+retrieving relevant images. \AJ{Perf comparsion to previous techniques}.
+However, applying image-centric retrieval techniques to audio spectrograms
+limits the accuracy and efficiency of the audio DBMS.
+We attribute this to the \textit{transparency} of audio data. 
+Unlike images, audio recordings are often derived from a collection of audio
+sources that can overlap in their frequency ranges.
+
+A better approach is to use audio-aware data representation and retrieval
+algorithms. This paper investigates the efficacy and efficiency of an ML 
+model that is guided by a taxonomy of human audio perception~\cite{Gaver1993}.
+We formulate a hierarchical data representation based on low-level intensity,
+spectral, and statistical properties that define a given recording. 
+%This representation transforms these temporal properties to high-level 
+%cognitive properties.
+Perception is of interest as the human cognitive capacity continues to exceed
+that of machines. Prior work in psychology and physiology has studied 
+how and why human perception is accurate and how it can optimally encode audio
+~\cite{Gaver1993, Eggermont2001, slaney1993importance, Piazza2013}.
+We hypothesize that a more performant and accurate CBAR technique can be
+constructed by modeling human auditory systems.
+We implemented our audio-centric representation, classification, and retrieval
+techniques in \sys. We validated our hypothesis by comparing \sys against 
+the state-of-the-art CBAR technique.
+
+In all, the contributions this work provides is as follows:
+\begin{itemize}
+    \item Present an audio representation based on human perception of sound.
+    \item Demonstrate a model developed to match the Gaver taxonomy of sound.
+    \item Use probabilistic models to retrieve unstructured data with high confidence.
+\end{itemize}
