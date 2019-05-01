@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="ensemble-overview.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="424.48569"
+     inkscape:cy="787.548"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1361"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect815-1-1"
+       width="39.770401"
+       height="17.988853"
+       x="81.442513"
+       y="16.61867" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot866-0"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,89.013394,-45.632051)"><flowRegion
+         id="flowRegion868-1"><rect
+           id="rect870-3"
+           width="200"
+           height="67.857124"
+           x="-53.571419"
+           y="262.51968" /></flowRegion><flowPara
+         id="flowPara872-8">General Classifier</flowPara></flowRoot>    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path1051"
+       d="m 102.62047,34.684522 -86.542384,18.119423 0.137085,6.56242"
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path1053"
+       d="m 102.62047,34.684522 -28.793325,17.131463 0.06719,7.73937"
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path1051-6"
+       d="m 101.72925,34.684521 88.65918,18.119424 -0.13708,7.091587"
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path1053-7"
+       d="m 101.72925,34.684521 28.26422,17.131464 -0.0861,7.777168"
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <g
+       id="g1251"
+       transform="translate(-13.477668,-9.8927658)">
+      <rect
+         y="69.440842"
+         x="125.20834"
+         height="17.988853"
+         width="39.770401"
+         id="rect815-13"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <flowRoot
+         transform="matrix(0.26458333,0,0,0.26458333,0,6.7844297)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         id="flowRoot882"
+         xml:space="preserve"><flowRegion
+           id="flowRegion884"><rect
+             y="262.51968"
+             x="448.33344"
+             height="67.857124"
+             width="200.00002"
+             id="rect886" /></flowRegion><flowPara
+           id="flowPara888">Interacting Materials</flowPara></flowRoot>      <g
+         transform="translate(67.657741,-43.643663)"
+         id="g1164">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.229376;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-6"
+           width="39.770622"
+           height="17.953913"
+           x="68.406944"
+           y="133.71426" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-9"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-56.822445,71.04038)"><flowRegion
+             id="flowRegion884-1"><rect
+               id="rect886-3"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara1138">Liquid sounds</flowPara></flowRoot>      </g>
+      <g
+         transform="translate(12.484077,-16.681355)"
+         id="g1171">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-0"
+           width="39.770401"
+           height="17.988853"
+           x="123.58072"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-1.5129643,71.04038)"><flowRegion
+             id="flowRegion884-7"><rect
+               id="rect886-6"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-8">Vibrating Solids</flowPara></flowRoot>      </g>
+      <g
+         transform="translate(-41.377541,10.280948)"
+         id="g1157">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-65"
+           width="39.770401"
+           height="17.988853"
+           x="177.44234"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,52.364529,71.04038)"><flowRegion
+             id="flowRegion884-8"><rect
+               id="rect886-33"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-3">Aerodynamic sounds</flowPara></flowRoot>      </g>
+      <path
+         inkscape:connector-curvature="0"
+         inkscape:connector-type="polyline"
+         id="path1210"
+         d="m 149.21599,136.23652 v 0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path1218"
+         d="m 125.20834,87.429693 -0.11345,74.349327 10.96991,0.18757"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1220"
+         d="m 136.06469,108.02452 -10.94914,0.0159"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1222"
+         d="m 136.0648,135.00428 -10.88244,-0.0364"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(-71.686039,8.0989122)"
+       id="g1251-5">
+      <rect
+         y="51.449158"
+         x="125.20834"
+         height="17.988853"
+         width="39.770401"
+         id="rect815-13-09"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <flowRoot
+         transform="matrix(0.26458333,0,0,0.26458333,0,-11.207238)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         id="flowRoot882-2"
+         xml:space="preserve"><flowRegion
+           id="flowRegion884-3"><rect
+             y="262.51968"
+             x="448.33344"
+             height="67.857124"
+             width="200.00002"
+             id="rect886-8" /></flowRegion><flowPara
+           id="flowPara1349">Speech</flowPara></flowRoot>      <g
+         transform="translate(67.657741,-61.635341)"
+         id="g1164-9">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.229376;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-6-7"
+           width="39.770622"
+           height="17.953913"
+           x="68.406944"
+           y="133.71426" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-9-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-56.822445,71.04038)"><flowRegion
+             id="flowRegion884-1-3"><rect
+               id="rect886-3-3"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara1138-8">Language </flowPara></flowRoot>      </g>
+      <g
+         transform="translate(12.484077,-34.673033)"
+         id="g1171-7">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-0-3"
+           width="39.770401"
+           height="17.988853"
+           x="123.58072"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-8-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-1.5129643,71.04038)"><flowRegion
+             id="flowRegion884-7-0"><rect
+               id="rect886-6-3"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-8-6">Emotion</flowPara></flowRoot>      </g>
+      <g
+         transform="translate(-41.377541,-7.7107196)"
+         id="g1157-9">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-65-8"
+           width="39.770401"
+           height="17.988853"
+           x="177.44234"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-1-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,52.364529,71.04038)"><flowRegion
+             id="flowRegion884-8-1"><rect
+               id="rect886-33-8"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-3-0">Speaker Recognition </flowPara></flowRoot>      </g>
+      <path
+         inkscape:connector-curvature="0"
+         inkscape:connector-type="polyline"
+         id="path1210-0"
+         d="m 141.05833,118.24191 v 0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path1218-3"
+         d="m 125.20834,69.438015 -0.11345,74.349225 10.96991,0.18757"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1220-8"
+         d="m 136.06469,90.032797 -10.94914,0.0159"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1222-3"
+         d="m 136.0648,117.0125 -10.88244,-0.0364"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 0.72175143,59.565565 v 0"
+       id="path1210-0-0"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g1723"
+       transform="translate(-10.054167,-23.865856)">
+      <rect
+         y="83.413925"
+         x="5.3681035"
+         height="17.988853"
+         width="39.770401"
+         id="rect815-13-09-0"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <flowRoot
+         transform="matrix(0.26458333,0,0,0.26458333,-119.84024,18.958346)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         id="flowRoot882-2-9"
+         xml:space="preserve"><flowRegion
+           id="flowRegion884-3-4"><rect
+             y="262.51968"
+             x="448.33344"
+             height="67.857124"
+             width="200.00002"
+             id="rect886-8-0" /></flowRegion><flowPara
+           id="flowPara1349-0">Human + Animal</flowPara><flowPara
+           id="flowPara1780">Sounds</flowPara></flowRoot>      <g
+         transform="translate(-52.182499,-29.670576)"
+         id="g1164-9-5">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.229376;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-6-7-4"
+           width="39.770622"
+           height="17.953913"
+           x="68.406944"
+           y="133.71426" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-9-3-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-56.822445,71.04038)"><flowRegion
+             id="flowRegion884-1-3-6"><rect
+               id="rect886-3-3-9"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara1138-8-5">Language </flowPara></flowRoot>      </g>
+      <g
+         transform="translate(-107.35616,-2.708268)"
+         id="g1171-7-1">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-0-3-8"
+           width="39.770401"
+           height="17.988853"
+           x="123.58072"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-8-2-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-1.5129643,71.04038)"><flowRegion
+             id="flowRegion884-7-0-2"><rect
+               id="rect886-6-3-4"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-8-6-2">Emotion</flowPara></flowRoot>      </g>
+      <g
+         transform="translate(-161.21778,24.254045)"
+         id="g1157-9-7">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-65-8-9"
+           width="39.770401"
+           height="17.988853"
+           x="177.44234"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-1-7-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,52.364529,71.04038)"><flowRegion
+             id="flowRegion884-8-1-1"><rect
+               id="rect886-33-8-7"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-3-0-4">Speaker Recognition </flowPara></flowRoot>      </g>
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path1218-3-7"
+         d="M 5.3681,101.40278 5.25465,175.752 16.22456,175.93957"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1220-8-8"
+         d="m 16.22445,121.99756 -10.94914,0.0159"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1222-3-6"
+         d="M 16.22456,148.97726 5.34212,148.94086"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 0.19258576,57.017612 v 0"
+       id="path1210-0-0-6"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g1778"
+       transform="translate(-10.054167,-11.641668)">
+      <rect
+         y="71.189743"
+         x="179.99323"
+         height="17.988853"
+         width="39.770401"
+         id="rect815-13-09-0-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <flowRoot
+         transform="matrix(0.26458333,0,0,0.26458333,54.784874,8.533351)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+         id="flowRoot882-2-9-7"
+         xml:space="preserve"><flowRegion
+           id="flowRegion884-3-4-3"><rect
+             y="262.51968"
+             x="448.33344"
+             height="67.857124"
+             width="200.00002"
+             id="rect886-8-0-1" /></flowRegion><flowPara
+           id="flowPara1349-0-8">Music</flowPara></flowRoot>      <g
+         transform="translate(122.44262,-41.894752)"
+         id="g1164-9-5-8">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.229376;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-6-7-4-5"
+           width="39.770622"
+           height="17.953913"
+           x="68.406944"
+           y="133.71426" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-9-3-2-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-56.822445,71.04038)"><flowRegion
+             id="flowRegion884-1-3-6-4"><rect
+               id="rect886-3-3-9-1"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara1138-8-5-6">Genre </flowPara></flowRoot>      </g>
+      <g
+         transform="translate(67.268951,-14.932444)"
+         id="g1171-7-1-8">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-0-3-8-2"
+           width="39.770401"
+           height="17.988853"
+           x="123.58072"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-8-2-5-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,-1.5129643,71.04038)"><flowRegion
+             id="flowRegion884-7-0-2-5"><rect
+               id="rect886-6-3-4-8"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-8-6-2-0">Instrument</flowPara></flowRoot>      </g>
+      <g
+         transform="translate(13.407333,12.029869)"
+         id="g1157-9-7-2">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.22959843;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect815-13-65-8-9-9"
+           width="39.770401"
+           height="17.988853"
+           x="177.44234"
+           y="133.69679" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot882-1-7-7-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Alegreya;-inkscape-font-specification:Alegreya;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.26458333,0,0,0.26458333,52.364529,71.04038)"><flowRegion
+             id="flowRegion884-8-1-1-3"><rect
+               id="rect886-33-8-7-7"
+               width="200.00002"
+               height="67.857124"
+               x="448.33344"
+               y="262.51968" /></flowRegion><flowPara
+             id="flowPara888-3-0-4-9">Song Recognition </flowPara></flowRoot>      </g>
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path1218-3-7-8"
+         d="m 179.99321,89.178604 -0.11345,74.349226 10.96991,0.18757"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1220-8-8-9"
+         d="m 190.84956,109.77339 -10.94914,0.0159"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path1222-3-6-3"
+         d="m 190.84967,136.75309 -10.88244,-0.0364"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
