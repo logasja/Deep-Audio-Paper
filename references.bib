@@ -1,4 +1,63 @@
 
+@article{kaur_feature_2015,
+	title = {Feature {Extraction} and {Classification} for {Automatic} {Speaker} {Recognition} {System} – {A} {Review}},
+	abstract = {Automatic speaker recognition (ASR) has found immense applications in the industries like banking, security, forensics etc. for its advantages such as easy implementation, more secure, more user friendly. To have a good recognition rate is a pre-requisite for any ASR system which can be achieved by making an optimal choice among the available techniques for ASR. In this paper, different techniques for the system have been discussed such as MFCC, LPCC, LPC, Wavelet decomposition for feature extraction and VQ, GMM, SVM, DTW, HMM for feature classification. All these techniques are also compared with each other to find out best suitable candidate among them. On the basis of the comparison done, MFCC has upper edge over other techniques for feature extraction as it is more consistent with human hearing. GMM comes out to be the best among classification models due to its good classification accuracy and less memory usage.},
+	language = {en},
+	journal = {International Journal of Advanced Research in Computer Science and Software Engineering},
+	author = {Kaur, Kirandeep and Jain, Neelu},
+	year = {2015},
+	pages = {6}
+}
+
+@article{grosse_shift-invariance_2012,
+	title = {Shift-{Invariance} {Sparse} {Coding} for {Audio} {Classification}},
+	url = {http://arxiv.org/abs/1206.5241},
+	abstract = {Sparse coding is an unsupervised learning algorithm that learns a succinct high-level representation of the inputs given only unlabeled data; it represents each input as a sparse linear combination of a set of basis functions. Originally applied to modeling the human visual cortex, sparse coding has also been shown to be useful for self-taught learning, in which the goal is to solve a supervised classification task given access to additional unlabeled data drawn from different classes than that in the supervised learning problem. Shift-invariant sparse coding (SISC) is an extension of sparse coding which reconstructs a (usually time-series) input using all of the basis functions in all possible shifts. In this paper, we present an efficient algorithm for learning SISC bases. Our method is based on iteratively solving two large convex optimization problems: The first, which computes the linear coefficients, is an L1-regularized linear least squares problem with potentially hundreds of thousands of variables. Existing methods typically use a heuristic to select a small subset of the variables to optimize, but we present a way to efficiently compute the exact solution. The second, which solves for bases, is a constrained linear least squares problem. By optimizing over complex-valued variables in the Fourier domain, we reduce the coupling between the different variables, allowing the problem to be solved efficiently. We show that SISC's learned high-level representations of speech and music provide useful features for classification tasks within those domains. When applied to classification, under certain conditions the learned features outperform state of the art spectral and cepstral features.},
+	urldate = {2019-03-27TZ},
+	journal = {arXiv:1206.5241 [cs, stat]},
+	author = {Grosse, Roger and Raina, Rajat and Kwong, Helen and Ng, Andrew Y.},
+	month = jun,
+	year = {2012},
+	note = {arXiv: 1206.5241},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning}
+}
+
+@article{smith_efficient_2006,
+	title = {Efficient auditory coding},
+	volume = {439},
+	copyright = {2006 Nature Publishing Group},
+	issn = {1476-4687},
+	url = {https://www.nature.com/articles/nature04485},
+	doi = {10.1038/nature04485},
+	abstract = {The auditory neural code must serve a wide range of auditory tasks that require great sensitivity in time and frequency and be effective over the diverse array of sounds present in natural acoustic environments. It has been suggested1,2,3,4,5 that sensory systems might have evolved highly efficient coding strategies to maximize the information conveyed to the brain while minimizing the required energy and neural resources. Here we show that, for natural sounds, the complete acoustic waveform can be represented efficiently with a nonlinear model based on a population spike code. In this model, idealized spikes encode the precise temporal positions and magnitudes of underlying acoustic features. We find that when the features are optimized for coding either natural sounds or speech, they show striking similarities to time-domain cochlear filter estimates, have a frequency-bandwidth dependence similar to that of auditory nerve fibres, and yield significantly greater coding efficiency than conventional signal representations. These results indicate that the auditory code might approach an information theoretic optimum and that the acoustic structure of speech might be adapted to the coding capacity of the mammalian auditory system.},
+	language = {En},
+	number = {7079},
+	urldate = {2019-03-27TZ},
+	journal = {Nature},
+	author = {Smith, Evan C. and Lewicki, Michael S.},
+	month = feb,
+	year = {2006},
+	pages = {978}
+}
+
+@article{pichevar_auditory-inspired_2011,
+	series = {Perceptual and {Statistical} {Audition}},
+	title = {Auditory-inspired sparse representation of audio signals},
+	volume = {53},
+	issn = {0167-6393},
+	url = {http://www.sciencedirect.com/science/article/pii/S0167639310001585},
+	doi = {10.1016/j.specom.2010.09.008},
+	abstract = {This article deals with the generation of auditory-inspired spectro-temporal features aimed at audio coding. To do so, we first generate sparse audio representations we call spikegrams, using projections on gammatone/gammachirp kernels that generate neural spikes. Unlike Fourier-based representations, these representations are powerful at identifying auditory events, such as onsets, offsets, transients, and harmonic structures. We show that the introduction of adaptiveness in the selection of gammachirp kernels enhances the compression rate compared to the case where the kernels are non-adaptive. We also integrate a masking model that helps reduce bitrate without loss of perceptible audio quality. We finally propose a method to extract frequent audio objects (patterns) in the aforementioned sparse representations. The extracted frequency-domain patterns (audio objects) help us address spikes (audio events) collectively rather than individually. When audio compression is needed, the different patterns are stored in a small codebook that can be used to efficiently encode audio materials in a lossless way. The approach is applied to different audio signals and results are discussed and compared. This work is a first step towards the design of a high-quality auditory-inspired “object-based” audio coder.},
+	number = {5},
+	urldate = {2019-03-27TZ},
+	journal = {Speech Communication},
+	author = {Pichevar, Ramin and Najaf-Zadeh, Hossein and Thibault, Louis and Lahdili, Hassan},
+	month = may,
+	year = {2011},
+	keywords = {Audio coding, Auditory pattern recognition, Episode discovery, Masking, Matching pursuit, Quantization, Sparse representations, Temporal data mining},
+	pages = {643--657}
+}
+
 @article{lewicki_efficient_2002,
 	title = {Efficient coding of natural sounds},
 	volume = {5},
@@ -132,7 +191,7 @@
 	keywords = {Computer Science - Machine Learning, Computer Science - Neural and Evolutionary Computing, Computer Science - Sound}
 }
 
-@inproceedings{xu_large-scale_2018,
+@inproceedings{xu-large-scale-2018,
 	title = {Large-{Scale} {Weakly} {Supervised} {Audio} {Classification} {Using} {Gated} {Convolutional} {Neural} {Network}},
 	doi = {10.1109/ICASSP.2018.8461975},
 	abstract = {In this paper, we present a gated convolutional neural network and a temporal attention-based localization method for audio classification, which won the 1st place in the large-scale weakly supervised sound event detection task of Detection and Classification of Acoustic Scenes and Events (DCASE) 2017 challenge. The audio clips in this task, which are extracted from YouTube videos, are manually labelled with one or more audio tags, but without time stamps of the audio events, hence referred to as weakly labelled data. Two subtasks are defined in this challenge including audio tagging and sound event detection using this weakly labelled data. We propose a convolutional recurrent neural network (CRNN) with learnable gated linear units (GLUs) non-linearity applied on the log Mel spectrogram. In addition, we propose a temporal attention method along the frames to predict the locations of each audio event in a chunk from the weakly labelled data. The performances of our systems were ranked the 1st and the 2nd as a team in these two sub-tasks of DCASE 2017 challenge with F value 55.6\% and Equal error 0.73, respectively.},
@@ -144,7 +203,7 @@
 	pages = {121--125}
 }
 
-@article{lyon_machine_2010,
+@article{lyon-machine-2010,
 	title = {Machine {Hearing}: {An} {Emerging} {Field} [{Exploratory} {DSP}]},
 	volume = {27},
 	issn = {1053-5888},
@@ -172,7 +231,7 @@
 	pages = {5876--5879}
 }
 
-@inproceedings{schuller_acoustic_2009,
+@inproceedings{schuller-acoustic-2009,
 	title = {Acoustic emotion recognition: {A} benchmark comparison of performances},
 	shorttitle = {Acoustic emotion recognition},
 	doi = {10.1109/ASRU.2009.5372886},
@@ -185,7 +244,7 @@
 	pages = {552--557}
 }
 
-@inproceedings{kohlsdorf_underwater_2013,
+@inproceedings{kohlsdorf-underwater-2013,
 	address = {Zurich, Switzerland},
 	title = {An underwater wearable computer for two way human-dolphin communication experimentation},
 	isbn = {978-1-4503-2127-3},
@@ -200,7 +259,7 @@
 	pages = {147}
 }
 
-@phdthesis{lehr_housing_2012,
+@phdthesis{lehr-housing-2012,
 	type = {thesis},
 	title = {{HOUSING} {POLICY} {AND} {SOCIO}-{ECONOMIC} {RESIDENTIAL} {SEGREGATION}: {THE} {CASE} {OF} {BUENOS} {AIRES}, {ARGENTINA}},
 	shorttitle = {{HOUSING} {POLICY} {AND} {SOCIO}-{ECONOMIC} {RESIDENTIAL} {SEGREGATION}},
@@ -259,18 +318,18 @@
 }
 
 @misc{noauthor_buenos_nodate,
-	title = {Buenos {Aires} {Ciudad} - {Gobierno} de la {Ciudad} {Autónoma} de {Buenos} {Aires} {\textbar}},
+	title = {Buenos {Aires} {Ciudad} - {Gobierno} de la {Ciudad} {Aut\'{o}noma} de {Buenos} {Aires} {\textbar}},
 	url = {https://www.buenosaires.gob.ar/},
 	urldate = {2019-03-04TZ}
 }
 
 @misc{aristaran_ejercicio_2018,
-	title = {Ejercicio de visualización de los datos de recorridos de las bicicletas públicas de {Buenos} {Aires}: jazzido/vizbici},
+	title = {Ejercicio de visualizaci\'{o}n de los datos de recorridos de las bicicletas públicas de {Buenos} {Aires}: jazzido/vizbici},
 	copyright = {MIT},
-	shorttitle = {Ejercicio de visualización de los datos de recorridos de las bicicletas públicas de {Buenos} {Aires}},
+	shorttitle = {Ejercicio de visualizaci\'{o}n de los datos de recorridos de las bicicletas públicas de {Buenos} {Aires}},
 	url = {https://github.com/jazzido/vizbici},
 	urldate = {2019-03-04TZ},
-	author = {Aristarán, Manuel},
+	author = {Aristar\'{a}n, Manuel},
 	month = jul,
 	year = {2018},
 	note = {original-date: 2013-05-11T19:36:59Z}
@@ -321,7 +380,7 @@
 	number = {11},
 	urldate = {2019-03-04TZ},
 	journal = {Applied Sciences},
-	author = {Baldominos, Alejandro and Blanco, Iván and Moreno, Antonio José and Iturrarte, Rubén and Bernárdez, Óscar and Afonso, Carlos},
+	author = {Baldominos, Alejandro and Blanco, Iv\'{a}n and Moreno, Antonio Jos\'{e} and Iturrarte, Rub\'{e}n and Bern\'{a}rdez, \'{o}scar and Afonso, Carlos},
 	month = nov,
 	year = {2018},
 	note = {arXiv: 1809.04933},
@@ -398,7 +457,7 @@
 	language = {en},
 	urldate = {2019-03-04TZ},
 	journal = {The Quarterly Review of Economics and Finance},
-	author = {Thomas, Carolyn and Cachanosky, Nicolás},
+	author = {Thomas, Carolyn and Cachanosky, Nicol\'{a}s},
 	month = may,
 	year = {2016},
 	pages = {70--80}
@@ -514,7 +573,6 @@
 	year = {2018},
 	keywords = {Mauricio Macri, argentina currency crisis, argentine currency, argentine peso, commodity, currency markets, economic news, financial market news, foreign exchange markets, general news, government borrowing, government finance, international relations, money, political, politics}
 }
-
 @article{guerra_residential_2018,
 	title = {Residential location, urban form, and household transportation spending in {Greater} {Buenos} {Aires}},
 	volume = {72},
@@ -528,7 +586,7 @@
 	year = {2018}
 }
 
-@book{lyon_human_2017,
+@book{lyon-human-2017,
 	edition = {1},
 	title = {Human and {Machine} {Hearing}: {Extracting} {Meaning} from {Sound}},
 	isbn = {978-1-107-00753-6 978-1-139-05169-9},
@@ -592,6 +650,7 @@ ISBN: 1687-4714},
 	keywords = {acoustic measures, evaluation, ground-truth, music similarity},
 	pages = {63--76}
 }
+
 @article{rodriguez_city_2016,
 	title = {A city for all? {Public} policy and resistance to gentrification in the southern neighborhoods of {Buenos} {Aires}},
 	volume = {37},
@@ -599,7 +658,7 @@ ISBN: 1687-4714},
 	shorttitle = {A city for all?},
 	url = {https://doi.org/10.1080/02723638.2016.1152844},
 	doi = {10.1080/02723638.2016.1152844},
-	abstract = {In this paper, we analyze grassroots movements’ resistance to gentrification processes in the southern area of Buenos Aires. We first review the limitations of the concept of gentrification when applied to the transformation of Latin American cities. We then examine the relationship between gentrification and social class in order to explain why and how local residents and grassroots organizations mount resistance to gentrification in three pericentral neighborhoods in the southern portion of Buenos Aires. Contemporary changes in these neighborhoods are driven by (1) the promotion of neoliberal urban renewal policies, and (2) the genesis and development of Law 341, a program that provides low-income people and organizations with loans for housing construction and renovation, and (3) the Programa de Autogestión de la Vivienda (the Self-Managed Housing Program), which supports cooperative-style housing management. Through two cases, we examine how the actions and strategies of grassroots organizations have countered some of the effects of gentrification in the South of Buenos Aires.},
+	abstract = {In this paper, we analyze grassroots movements’ resistance to gentrification processes in the southern area of Buenos Aires. We first review the limitations of the concept of gentrification when applied to the transformation of Latin American cities. We then examine the relationship between gentrification and social class in order to explain why and how local residents and grassroots organizations mount resistance to gentrification in three pericentral neighborhoods in the southern portion of Buenos Aires. Contemporary changes in these neighborhoods are driven by (1) the promotion of neoliberal urban renewal policies, and (2) the genesis and development of Law 341, a program that provides low-income people and organizations with loans for housing construction and renovation, and (3) the Programa de Autogesti\'{o}n de la Vivienda (the Self-Managed Housing Program), which supports cooperative-style housing management. Through two cases, we examine how the actions and strategies of grassroots organizations have countered some of the effects of gentrification in the South of Buenos Aires.},
 	number = {8},
 	urldate = {2019-03-01TZ},
 	journal = {Urban Geography},
@@ -629,7 +688,7 @@ ISBN: 1687-4714},
 @misc{brian_mcfee_2018_1252297,
 	title = {librosa/librosa: 0.6.1},
 	url = {https://doi.org/10.5281/zenodo.1252297},
-	author = {McFee, Brian and McVicar, Matt and Balke, Stefan and Thomé, Carl and Raffel, Colin and Lee, Dana and Nieto, Oriol and Battenberg, Eric and Ellis, Dan and Yamamoto, Ryuichi and Moore, Josh and Bittner, Rachel and Choi, Keunwoo and Friesch, Pius and Stöter, Fabian-Robert and Lostanlen, Vincent and Kumar, Siddhartha and Waloschek, Simon and Kranzler, Seth and Naktinis, Rimvydas and Repetto, Douglas and Hawthorne, Curtis ``Fjord'' and Carr, C J and Pimenta, Waldir and Viktorin, Petr and Brossier, Paul and Santos, João Felipe and Wu, Jackie and Peterson, Erik and Holovaty, Adrian},
+	author = {McFee, Brian and McVicar, Matt and Balke, Stefan and Thom\'{e}, Carl and Raffel, Colin and Lee, Dana and Nieto, Oriol and Battenberg, Eric and Ellis, Dan and Yamamoto, Ryuichi and Moore, Josh and Bittner, Rachel and Choi, Keunwoo and Friesch, Pius and Stöter, Fabian-Robert and Lostanlen, Vincent and Kumar, Siddhartha and Waloschek, Simon and Kranzler, Seth and Naktinis, Rimvydas and Repetto, Douglas and Hawthorne, Curtis ``Fjord'' and Carr, C J and Pimenta, Waldir and Viktorin, Petr and Brossier, Paul and Santos, João Felipe and Wu, Jackie and Peterson, Erik and Holovaty, Adrian},
 	month = may,
 	year = {2018},
 	doi = {10.5281/zenodo.1252297}
@@ -903,7 +962,6 @@ ISBN: 9781627480031},
 ISBN: 026206197X},
 	pages = {706}
 }
-
 @article{Hsu2008,
 	title = {Tag normalization and prediction for effective social media retrieval},
 	doi = {10.1109/WIIAT.2008.92},
@@ -1045,6 +1103,7 @@ ISBN: 9781450324045},
 	note = {ISBN: 0-7803-7402-9},
 	pages = {IV--4108--IV--4111}
 }
+
 @article{Turnbull2007,
 	title = {Towards musical query-by-semantic-description using the cal500 data set},
 	url = {http://portal.acm.org/citation.cfm?doid=1277741.1277817},
@@ -1230,7 +1289,7 @@ ISBN: 2048770312},
 	abstract = {The visual sense of dogs is in many aspects different than that of humans. Unfortunately, authors do not explicitly take into consideration dog-human differences in visual perception when designing their experiments. With an image manipulation program we altered stationary images, according to the present knowledge about dog-vision. Besides the effect of dogs’ dichromatic vision, the software shows the effect of the lower visual acuity and brightness discrimination, too. Fifty adult humans were tested with pictures showing a female experimenter pointing, gazing or glancing to the left or right side. Half of the pictures were shown after they were altered to a setting that approximated dog vision. Participants had difficulty to find out the direction of glancing when the pictures were in dog-vision mode. Glances in dog-vision setting were followed less correctly and with a slower response time than other cues. Our results are the first that show the visual performance of humans under circumstances that model how dogs’ weaker vision would affect their responses in an ethological experiment. We urge researchers to take into consideration the differences between perceptual abilities of dogs and humans, by developing visual stimuli that fit more appropriately to dogs’ visual capabilities.},
 	number = {March},
 	journal = {Behavioural Processes},
-	author = {Pongrácz, Péter and Ujvári, Vera and Faragó, Tamás and Miklósi, Ádám and Péter, András},
+	author = {Pongr\'{a}cz, P\'{e}ter and Ujv\'{a}ri, Vera and Farag\'{o}, Tam\'{a}s and Mikl\'{o}si, \'{a}d\'{a}m and P\'{e}ter, Andr\'{a}s},
 	year = {2017},
 	note = {ISBN: 0201503311048},
 	keywords = {Dog, Ethology, Human, Visual perception},
@@ -1277,7 +1336,7 @@ ISBN: 2048770312},
 	number = {2},
 	urldate = {2018-04-27},
 	journal = {Animal Cognition},
-	author = {Larrañaga, Ana and Bielza, Concha and Pongrácz, Péter and Faragó, Tamás and Bálint, Anna and Larrañaga, Pedro},
+	author = {Larrañaga, Ana and Bielza, Concha and Pongr\'{a}cz, P\'{e}ter and Farag\'{o}, Tam\'{a}s and B\'{a}lint, Anna and Larrañaga, Pedro},
 	month = mar,
 	year = {2014},
 	pmid = {25308549},
@@ -1297,7 +1356,7 @@ ISBN: 1435-9448},
 	number = {5},
 	urldate = {2018-04-27},
 	journal = {Royal Society Open Science},
-	author = {Faragó, T. and Takács, N. and Miklósi, Á. and Pongrácz, P.},
+	author = {Farag\'{o}, T. and Tak\'{a}cs, N. and Mikl\'{o}si, \'{a}. and Pongr\'{a}cz, P.},
 	month = may,
 	year = {2017},
 	pmid = {28573021},
@@ -1384,7 +1443,7 @@ ISBN: 00239690 (ISSN)},
 	number = {4},
 	urldate = {2018-02-17},
 	journal = {Behaviour and Information Technology},
-	author = {Izsó, Lajos and Láng, Eszter},
+	author = {Izs\'{o}, Lajos and L\'{a}ng, Eszter},
 	month = jan,
 	year = {2000},
 	note = {Publisher: Taylor \& Francis Group
@@ -1427,7 +1486,7 @@ ISBN: 0144-929X},
 	number = {3},
 	urldate = {2018-02-08},
 	journal = {Animal Cognition},
-	author = {Molnár, Csaba and Kaplan, Frédéric and Roy, Pierre and Pachet, François and Pongrácz, Péter and Dóka, Antal and Miklósi, Ádám},
+	author = {Moln\'{a}r, Csaba and Kaplan, Fr\'{e}d\'{e}ric and Roy, Pierre and Pachet, François and Pongr\'{a}cz, P\'{e}ter and D\'{o}ka, Antal and Mikl\'{o}si, \'{a}d\'{a}m},
 	month = jul,
 	year = {2008},
 	note = {Publisher: Springer-Verlag},
@@ -1444,7 +1503,7 @@ ISBN: 0144-929X},
 	number = {2},
 	urldate = {2018-02-07},
 	journal = {Behavioural Processes},
-	author = {Molnár, Csaba and Pongrácz, Péter and Faragó, Tamás and Dóka, Antal and Miklósi, Ádám},
+	author = {Moln\'{a}r, Csaba and Pongr\'{a}cz, P\'{e}ter and Farag\'{o}, Tam\'{a}s and D\'{o}ka, Antal and Mikl\'{o}si, \'{a}d\'{a}m},
 	month = oct,
 	year = {2009},
 	note = {Publisher: Elsevier},
@@ -1461,7 +1520,7 @@ ISBN: 0144-929X},
 	number = {1-2},
 	urldate = {2018-02-07},
 	journal = {Applied Animal Behaviour Science},
-	author = {Maros, Katalin and Pongrácz, Péter and Bárdos, György and Molnár, Csaba and Faragó, Tamás and Miklósi, Ádám},
+	author = {Maros, Katalin and Pongr\'{a}cz, P\'{e}ter and B\'{a}rdos, György and Moln\'{a}r, Csaba and Farag\'{o}, Tam\'{a}s and Mikl\'{o}si, \'{a}d\'{a}m},
 	month = nov,
 	year = {2008},
 	note = {Publisher: Elsevier},
@@ -1477,7 +1536,7 @@ ISBN: 0144-929X},
 	abstract = {Besides being a widely investigated behavioural phenomenon, barks of dogs often represent a factor of nuisance for people. Although some argue that dog barking has no or only minimal communicative function, it was shown recently that these acoustic signals carry various information that humans can decipher. However, apart from a few laboratory studies, until now no targeted research has been done about the communicative role of barks in the intraspecific domain. In this field experiment companion dogs were tested with bark playbacks at home, in a suburban environment. From a hidden sound system, placed near to the gate outside of the property, each subject was exposed to pre-recorded barks of an unfamiliar and a familiar dog. Barks for the playbacks were recorded in two different contexts: when the dog was either left alone or when it was barking at a stranger at the fence. We found differences in the behaviour of dogs depending on both the familiarity and context of the playback barks. The position of the dogs (near the house or near the gate) was mainly influenced by the context of the barks (p=0.011), in a significant interaction with the familiarity of the barking dog (p=0.020). Subjects stayed at the gate (nearest to the source of the sound) the longest when they heard an unfamiliar dog barking at a stranger (padj=0.012). Meanwhile they stayed at the house mostly during the barks of a lonely unfamiliar dog (padj=0.001). Dogs oriented more towards the house (where the familiar dog stayed during the experiment) when they heard the familiar dog's barking (p=0.019). Subjects barked more often when they heard the ‘stranger’ barks, independently of the familiarity of the caller (p=0.035). As a conclusion, dogs seemingly distinguished among the callers based on familiarity and between the contexts of the barks. This is the first study on companion dogs in their natural environment that found evidence that dogs are able to extract detailed information from the barks. The relevance of our findings for the management of excessive bark is discussed.},
 	urldate = {2018-02-05},
 	journal = {Applied Animal Behaviour Science},
-	author = {Péter, Pongrácz and Éva, Szabó and Anna, Kis and András, Péter and Ádám, Miklósi},
+	author = {P\'{e}ter, Pongr\'{a}cz and \'{e}va, Szab\'{o} and Anna, Kis and Andr\'{a}s, P\'{e}ter and \'{a}d\'{a}m, Mikl\'{o}si},
 	month = oct,
 	year = {2014},
 	note = {Publisher: Elsevier},
@@ -1492,7 +1551,7 @@ ISBN: 0144-929X},
 	abstract = {The authors investigated whether human listeners could categorize played-back dog (Canis familiaris) barks recorded in various situations and associate them with emotional ratings. Prerecorded barks of a Hungarian herding dog breed (Mudi) provided the sample. Human listeners were asked to rate emotionality of the vocalization and to categorize the situations on the basis of alternative situations provided on a questionnaire. The authors found almost no effect of previous experience with the given dog breed or of owning a dog. Listeners were able to categorize bark situations high above chance level. Emotionality ratings for particular bark samples correlated with peak and fundamental frequency and interbark intervals. The authors did not find a significant effect of tonality (harmonic-to-noise ratio) on either the emotionality rating or situation categorization of the human listeners. Humans' ability to recognize meaning suggests that barks could serve as an effective means of communication between dog and human.},
 	number = {2},
 	journal = {Journal of Comparative Psychology},
-	author = {Pongrácz, Péter and Molnár, Csaba and Miklósi, Ádám and Csányi, Vilmos},
+	author = {Pongr\'{a}cz, P\'{e}ter and Moln\'{a}r, Csaba and Mikl\'{o}si, \'{a}d\'{a}m and Cs\'{a}nyi, Vilmos},
 	year = {2005},
 	pmid = {15982157},
 	note = {ISBN: 0735-7036},
@@ -1509,7 +1568,7 @@ ISBN: 0144-929X},
 	number = {2},
 	urldate = {2018-02-05},
 	journal = {The Veterinary Journal},
-	author = {Pongrácz, Péter and Molnár, Csaba and Miklósi, Ádám},
+	author = {Pongr\'{a}cz, P\'{e}ter and Moln\'{a}r, Csaba and Mikl\'{o}si, \'{a}d\'{a}m},
 	month = feb,
 	year = {2010},
 	note = {Publisher: W.B. Saunders},
@@ -1569,7 +1628,7 @@ ISBN: 0144-929X},
 	abstract = {A number of species are considered to use functionally referential signals such as alarm calls or food-related vocalizations. However, this particular function of communicative interaction has not previously been found in canids. We provide the first experimental indication that domestic dogs, Canis familiaris, rely on context-dependent signals during interspecific agonistic encounters. We recorded several sequences of growls from dogs in three different contexts: during play, guarding a bone from another dog, and reacting to a threatening stranger. We analysed the acoustic structure of the growls and additionally performed playback tests in a seminatural food-guarding situation. We found that play growls differed acoustically from the other two (agonistic) types of growls, mainly in their fundamental frequencies and formant dispersions. Results of the playback experiment showed that food-guarding growls deterred other dogs from taking away a seemingly unattended bone more effectively than growls recorded in the threatening stranger situation. We ruled out an effect of the signaller's body weight on the subjects' responses. These results provide the first evidence of context specificity of agonistic vocalizations in the dog. We discuss the possible aspects of honesty and deception through acoustic modulation of growls. © 2010 The Association for the Study of Animal Behaviour.},
 	number = {4},
 	journal = {Animal Behaviour},
-	author = {Faragó, Tamás and Pongrácz, Péter and Range, Friederike and Virányi, Zsófia and Miklósi, Ádám},
+	author = {Farag\'{o}, Tam\'{a}s and Pongr\'{a}cz, P\'{e}ter and Range, Friederike and Vir\'{a}nyi, Zs\'{o}fia and Mikl\'{o}si, \'{a}d\'{a}m},
 	year = {2010},
 	note = {ISBN: 0003-3472},
 	keywords = {Canis familiaris, acoustical analysis, dog, graded signal, growl, referential communication},
