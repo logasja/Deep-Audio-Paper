@@ -1,11 +1,18 @@
-\section{Waveform Encoding}
+\section{Representation}
 
-Here, we focus on the task of encoding the audio waveform into a usable representation for classification.
-~\cref{alg:overall} illustrates the overall flow of the encoding pipeline. 
-The steps of which are discussed in more detail in the following sections.
+In this section, we discuss the representation used by \sys to enable more
+performant and accurate content-based audio retrieval.
+%
+~\cref{alg:overall} illustrates the overall flow of the data encoding pipeline.
+%
+Our goal is to transform the audio waveform into a usable representation for
+classification.
+%
+We next discuss the different stages of the pipeline in detail.
 
-\begin{algorithm}
-    \caption{Transforms audio representation for classification.}\label{encoder}
+\begin{algorithm}[t!]
+    \caption{Transforms audio representation for classification.}
+	\label{alg:overall}
     \SetKwInOut{Input}{inputs}
     \SetKwInOut{Output}{output}
     \SetKwProg{EncodeAudio}{EncodeAudio}{}{}
@@ -23,7 +30,6 @@ The steps of which are discussed in more detail in the following sections.
         }
         $\Return F$\;
     }
-    \label{alg:overall}
 \end{algorithm}
 
 \subsection{Representation}
@@ -55,18 +61,18 @@ The steps of which are discussed in more detail in the following sections.
 
 The peripheral analyzer portion of machine hearing systems is analogous to the cochlea in biological hearing. This module performs a majority of the preprocessing done on a signal, converting it into a usable representation. This module applies a low-pass filter on the waveform, downsamples the audio to 16kHz, separates the audio into different sources which are then tokenized, and converts the tokens to a normalized half-wave rectified representation. These tokens are then made to fit into a predefined window of time. In this section, we will describe the design choices of this module and the reasoning behind them.
 
-\begin{itemize}
-    % \item Downsampling
-    % \item Mel-Frequency Cepstrum
-    % \item Source Separation
-    % \item Early segmentation tasks (silence based)
-    % \item Half-rectification
-    \item Time windowing
-    \item Hanning Window
-    \item Overlapping windows
-    \item optimal window size
+% \begin{itemize}
+%     \item Downsampling
+%     \item Mel-Frequency Cepstrum
+%     \item Source Separation
+%     \item Early segmentation tasks (silence based)
+%     \item Half-rectification
+%     \item Time windowing
+%     \item Hanning Window
+%     \item Overlapping windows
+%     \item optimal window size
 
-\end{itemize}
+% \end{itemize}
 
 \subsubsection{Preprocessing}
 
@@ -181,4 +187,26 @@ As many of these features are collected at a frame level statistics, found
 in~\cref{tab:stats}, are computed over the entire window.
 
 \subsubsection{Feature Transform}
-With all features and the maximum number of statistics per features, we may have a feature vector larger than 100 values. The number of feature values
+With all features and the maximum number of statistics per feature, we have a vector of about 129 values. This presents an issue in training and evaluating classifiers, namely the curse of dimensionality. To reduce this effect we apply feature selection and reduction techniques as a final preprocessing step. Through experimentation we found Principal Component Analysis (PCA) and feature selection with chi to be the most effective choice.
+
+\textit{Feature Selection} is the method of reducing the number of features under observation by some heuristic.
+
+\textit{Principal Component Analysis} uses orthogonal transformations to convert a feature set of possibly correlated variables into a set of linearly uncorrelated variables known as principal components. This approach allows the user to provide a number of principal components desired thus reducing the number of features to a more manageable number. However, the number of optimal principal components varies by dataset and must be carefully chosen as the features may already be of sufficient variance and dropping any will reduce a model's efficacy. This is an iterative function with the first component being computed by
+
+\begin{equation}
+    \textbf{w}_{(1)} = \argmax_{||\textbf{w}||=1}{\sum_{i}(\textbf{x}_{(i)} \cdot \textbf{w})^2}
+\end{equation}
+
+with \textbf{x} being a row vector of the input data \textbf{X} and \textbf{w} being the coefficient vector, constrained to be a unit vector. The subsequent components are computed by subtracting the first \textit{k} - 1 principal components from \textbf{X}
+
+\begin{equation}
+    \hat{\textbf{X}}_k = \textbf{X} - \sum_{s=1}^{k-1}{\textbf{X}\textbf{w}_{(s)}\textbf{w}_{(s)}^\textbf{T}}
+\end{equation}
+
+and afterward finding a weight vector that extracts the max variance from the new data matrix
+
+\begin{equation}
+    \textbf{w}_{(\textit{k})} = \argmax_{||\textbf{w}||=1}(||\hat{\textbf{X}}_{\textit{k}}\textbf{w}||^2)
+\end{equation}
+
+It turns out in these calculations that the weight vectors found are actually eigenvectors of $ \textbf{X}^\textbf{T}\textbf{X} $.
