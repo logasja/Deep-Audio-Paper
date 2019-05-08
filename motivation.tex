@@ -9,6 +9,7 @@ We begin with an overview of machine hearing principles and make the case for
 an audio-centric CBAR technique.
 
 \subsection{Machine Hearing Principles}
+\label{motivation:machine-hearing}
 
 Machine hearing is an emerging field focused on endowing machines with  
 the ability to hear as humans do~\cite{lyon-human-2017}.
@@ -76,12 +77,17 @@ structures (\eg, a deep neural network).
 
 Given the high accuracy of content-based image retrieval (CBIR) systems, 
 researchers have attempted to leverage these systems for audio retrieval.
+Chechik et al. use a passive-aggressive model for image retrieval
+(PAMIR) to perform audio retrieval over spectrogram imagery~\cite{Chechik2008}.
 This technique consists of transforming audio recordings to spectrograms and
 subsequently use image retrieval techniques for audio retrieval.
 Thus, it leverages machine vision to perform machine hearing, thereby 
 combining the neural coding and echoic memory portions of human hearing 
 into a single step \footnote{The vision model is directly trained on
 spectrograms instead of relying on a separate classification module.}.
+
+%The PAMIR system uses probabilistic confidence to rank audio recordings based
+% on their relevance to a text query.
 
 \begin{figure}[!tbp]
     \centering
@@ -107,21 +113,16 @@ However, these systems are unable to deliver high accuracy (> 70\%) even with
 complex model ensembles~\cite{xu-large-scale-2018,piczak-environmental-2015}.
 
 A more recent development in image-based machine hearing is to use an
-unsupervised learning technique called auto-encoding. An auto-encoder is a
-neural network that is half of a reconstruction network in which an image is
-reduced to latent variables and reconstituted. Often, the spectrogram is reduced
-to latent variables using CNNs. Again, while CNNs have success in image
-recognition, the same issues arise as discussed before. Additionally, relevant
-data is likely ignored and thus can cause even worse performance especially in
-mixed source documents.
-
-In an attempt to capitalize on image retrieval success, Chechik et al. used
-spectrogram imagery to perform unstructured audio retrieval with
-passive-aggressive model for image retrieval (PAMIR) \cite{Chechik2008}. This
-work used probabilistic confidence to rank audio documents on relevance to a
-text query. When tested against the Freesound database though it saw no
-improvement over GMM or SVM using traditional audio features. The average
-precision of the classifier was 0.27 with a max of about 0.55.
+unsupervised learning technique, called \textit{auto-encoding}\AJ{Cite?}. 
+An auto-encoder is a type of neural network that learns to reconstruct its 
+input image by reducing it to latent variables.
+In image-based machine hearing, prior research has focused on reducing 
+\textit{spectrogram}\AJ{define?} to latent variables using a CNN.
+This approach suffers from the limitations discussed above.
+While CNNs are effective on image recognition, they are unable to cope with the
+transparency of audio. Furthermore, they ignore key features (\AJ{What?}),
+thereby resulting in lower accuracy on real-world audio recordings with
+multiple sources.
 
 \subsection{Waveform-Based Machine Hearing}
 % \begin{itemize}
@@ -131,54 +132,73 @@ precision of the classifier was 0.27 with a max of about 0.55.
 %     \item Biologically Based Encoding
 %     \item My approach + some teaser
 % \end{itemize}
-Perhaps the most common audio representation used in classification tasks is the
-Mel-frequency cepstral coefficients (MFCCs). They are popular because they are
-cheap to calculate and provide a representation that is consistent with human
-hearing \cite{kaur-feature-2015}. Many specific tasks are successful using only
-MFCCs however for a general case of audio representation, more information is
-needed. For this, a naive approach is to extract the temporal and spectral
-features from the waveform to provide a more complete representation. Though,
-this approach is costly and leads to greater data dimensionality causing
-classification agents to converge more slowly.
 
-Other approaches like Dynamic Time Warping (DTW) and Hidden Markov Models (HMMs)
-work directly on the audio data-stream itself and thus do not require feature
-extraction or spectral image creation. These approaches have found success in
-both speech recognition and specialized retrieval systems. Both DTW and HMMs
-have the benefit of taking into account the sequential nature of the audio data
-when making a determination. However, DTW is a costly algorithm and in the
-context of large databases is infeasible for use. Similarly, HMMs can become very
-complex especially when needing to determine many classes as a model needs to be
-trained for each class. Additionally, neither take advantage of domain knowledge
-and do not conform to the machine hearing principles outlined above.
+As an alternative to converting from an audio to visual domain, models can be trained on features from the audio itself. This approach to machine hearing hampers the ability of practitioners to apply proven image-based techniques but is overall more robust. In this approach, models are trained either directly on the audio waveform itself with no transformation, or a spectrogram is calculated and features are extracted from both the waveform and spectrogram.
 
-While auto-encoding with CNNs saw little success, Recurrent neural network (RNN)
-based encoders preform well. This is due to much of the information in audio
-being reliant on what comes before it. Unlike CNN based encoders, RNN based
-encoders do not encode the spectrogram image but instead can learn from the
-waveform values or vectors of spectrogram features presented as a time series.
-This kind of auto-encoder has the benefit of being cheap to compute and creating
-compact representations that take time into account and can be used with any
-number of off-the-shelf classifiers.
+With waveform-based machine hearing, \textit{Mel-frequency cepstral
+coefficients} (MFCCs) are a frequently-used audio representation technique. 
+The reasons for their popularity are twofold. First, they computationally
+efficient to compute. Next, they provide a representation that is consistent
+with human hearing~\cite{kaur-feature-2015}.
+While certain audio processing tasks are feasible using only MFCCs, we require 
+a more detailed representation for machine hearing\AJ{Cite?}.
+A naive solution to this problem is to extract the temporal and spectral
+features from the waveform to derive a more complete representation.
+However, this approach is computationally expensive and leads to higher data
+dimensionality resulting in slower convergence of classification agents.
 
-The biological neural code for audio encoding has been sought even before
-machine hearing was solidified as a field \cite{Eggermont2001}. Through studies
-of the biological systems that convert sound waves to neural responses,
-researchers have been able to emulate some portions with others requiring
-speculation. Smith and Lewicki give a nonlinear model based on population spike
-code to encode waveforms \cite{smith-efficient-2006}. In this work, they
-illustrate that idealized spikes encode precise temporal positions and
-magnitudes of underlying acoustic features. This work provides a method to
-extract an efficient coding of natural sounds, making sure the classifiers are
-working with the most information dense representation possible.
+Other techniques for constructing a detailed representation include: (1) 
+Dynamic Time Warping (DTW) and (2) Hidden Markov Models (HMMs).
+These approaches directly work on the audio data itself and thus do not require
+feature extraction or constructions of spectral images.
+They have found success in both speech recognition and specialized retrieval
+systems\AJ{Cite?}.
+Both DTW and HMMs have the benefit of taking referring back to previous states during determination, thus capturing the sequential nature 
+of audio. 
+However, DTW is computationally expensive and it is infeasible to support 
+large audio databases using this technique.
+Similarly, the complexity of HMMs increases when they need to support tens of
+classes, as a model must be trained for each class.
+Additionally, neither technique takes advantage of domain knowledge 
+and do not conform to the machine hearing principles outlined
+in~\cref{motivation:machine-hearing}.
+
+While auto-encoding with CNNs does not work well for audio retrieval,
+encoders based on Recurrent neural network (RNN) do not suffer from this
+limitation.
+This is because much of the information in a audio recording is dependent 
+on what comes before it.
+Unlike CNN-based encoders that learn from the spectrogram image,
+RNN-based encoders learn from the waveform values or vectors of spectrogram
+features presented as a time series.
+The latter approach has two additional benefits.
+First, RNN-based encoders are computationally efficient.
+Second, they create compact representations that take time into account 
+and can be used with any number of off-the-shelf classifiers.
+
+\AJ{Why do we need the following paragraph?}
+Researchers continue to seek the biological neural code for audio
+encoding~\cite{Eggermont2001}. 
+Through studies of the biological systems that convert sound waves to neural
+responses, researchers have been able to emulate certain steps of the audio
+encoding pipeline with other steps requiring speculation. 
+Smith and Lewicki present a non-linear model based on population spike code 
+to encode waveforms \cite{smith-efficient-2006}. 
+They illustrate that idealized spikes encode precise temporal positions and
+magnitudes of underlying acoustic features. 
+This effort provides a method to efficiently extract a coding of natural 
+sounds, making sure the classifiers are working with an information-rich
+representation.
 
 \begin{table}[t]
     \centering
-    \begin{tabular}{ccc}
-         & 250   & 2000  \\ \hline
-    DNN  & 0.174 & 0.191 \\
-    HDNN & 0.246 & 0.130
+    \begin{tabular}{cccccc}
+                & Bag of Features & DTW & HMM & Wavelet  \\ \hline
+    Approx Size & a & a & a & a \\
+    Complexity  & a & a & a & a
     \end{tabular}
     \caption{Simple table with audio representations and their complexity/usefulness/features}
     \label{tab:audioreps}
 \end{table}
+
+We next describe the three components of \sys in detail.
