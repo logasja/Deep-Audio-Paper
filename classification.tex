@@ -103,10 +103,31 @@ Another consideration when working with a hierarchical classifier is whether the
     \item Classifier for Interacting Elements
     \item Teaser of results from experiments
 \end{itemize}
-Much work has been done in determining what features and classifiers perform the best on audio sub-domains. It is unlikely that in human perception that all different listening tasks are decoded by the same system. Instead there are likely specialized systems that have evolved to best handle specific classification tasks. Thus, the hierarchy has a variety of classifiers specially chosen for their usefulness in each domain.
+Specific contexts of audio classification have long been an area of interest and thus certain audio sub-domains have been extensively studied for optimal classification techniques. It is unlikely that in human perception all different listening tasks are accomplished through the same process. Instead there are likely specialized systems that have evolved to best handle specific classification tasks. Using this intuition and the ability to do so through hierarchical classification, we pick and choose classifiers and representations that work best for each sub-domain. As this is a tree hierarchy, we have branch and leaf nodes that are comprised of their own classifier. Here, we term them \textit{Filtering} and \textit{Deciding} classifiers.
 
-Probabilistic classifiers are key to mitigating the issue of error propagation in the hierarchical model. While standard classifiers emulate a function of the form y=f(x) with a single result (y) for each input (x), a probabilistic classifier instead emulates conditional distributions of the form P(y|x). We are able to use the resulting probabilities given by a classifier to determine its confidence in the prediction made. We use the confidence to allow normally misclassified results to still be considered. This is done by introducing a threshold (gamma) that must be reached to proceed. Of course, if the threshold is too low then we lose the efficacy of the hierarchical structure in terms of complexity and performance. On the other hand, if the threshold is too high then false negatives will ensure some documents with harder to classify instances of a class will never be retrieved.
+\subsubsection{Filtering Classifiers}
+Filtering classifiers are the branch nodes of the hierarchy tree. They have this term as their main purpose is to filter the data and throw out unrelated documents such that lower filter and deciding classifiers can execute more quickly. In our experiments, it was found to be desirable for these classifiers to be both lightweight and have uncertainty associated with it. As such, probabilistic classifiers are used in the filtering classifiers. 
 
+Probabilistic classifiers are key to mitigating the issue of error propagation in the hierarchical model. While standard classifiers emulate a function of the form $y=f(x)$ with a single result \textit{y} for each input \textit{y}, a probabilistic classifier instead emulates conditional distributions of the form $P(y|x)$. We are able to use the resulting probabilities given by a classifier to determine its confidence in the prediction made. We use this confidence to allow normally misclassified results to still be considered in later steps. This is done by introducing a threshold $\gamma$ that must be reached to proceed. If the threshold is too low, we lose the performance efficacy of the hierarchical structure. On the other hand, if the threshold is too high then false negatives will ensure some documents with harder to classify instances of a class will never be retrieved.
+
+In this implementation, the following lightweight and probabilistic classifiers were experimented with:
+\\
+\\
+\textbf{Support Vector Machines} are a supervised learning model used for classification that partitions the data by finding the most optimal linear hyper-plane that separates all dimensions of the feature set optimally. Although SVMs inherently separate the data by some linear relationship (decision boundary), non-linear classification can be done by the kernel trick. The kernel trick is the method of mapping the inputs into different feature spaces in which the data is linearly separable. To allow for probabilistic estimation, the SVM is computed with soft-margins. The soft-margins provide a decision boundary with in-built uncertainty through a gradient of certainty that becomes greater as samples are picked further from the boundary. The boundary is calculated by minimizing the the hinge loss function over all samples. This is calculated by
+
+\begin{equation}
+    \Big[ \frac{1}{n}\sum^n_{i=1}\max(0,1-y_i(\vec{\omega} \cdot \vec{x_i} - b))\Big] + \lambda ||\vec{\omega}||^2
+\end{equation}
+\\
+where $\omega$ is the normal vector to the hyper-plane, $y_i$ is the target, $\vec{x_i}$ is the features at i, and $\lambda$ determines the margin size and whether $\vec{x_i}$ is on the correct side of the decision boundary. For small values of $\lambda$, the soft-margin SVM will perform similarly to the hard-margin.
+
+\\
+\\
+\textbf{K-Nearest Neighbors} is a classification method that uses the plurality vote of its neighbor samples by some heuristic of distance to determine its belonging to a class. KNN is known as a \textit{lazy learning} method, meaning the classifier defers its computation until classification evaluation. As such, all points are retained in the model. Any custom heuristic for distance can be used but the most common is Euclidean distance or Manhattan Distance. One of the more challenging parts of this classification approach is the tuning of the neighbor number hyper-parameter as at k=1 the class is determined by the first closest neighbor and at k=n the class is whatever the most numerous of the classes is present. To use this classifier in a probabilistic case, the number of matching neighbors and the distances can be used for determination. Probability is computed such that the radial area surrounding the k neighbors creates a probability distribution. \cite{cheng_evaluating_2009}
+
+\\
+\textbf{Random Forests}
+\\
 % \subsubsection{Annotation Normalization} Annotation normalization is carried
 % out on subsets of both the ESC-50 and AudioSet database. Performance is
 % measured in terms of execution time, efficiency, and overall annotation
@@ -120,11 +141,15 @@ Probabilistic classifiers are key to mitigating the issue of error propagation i
 % normalization task. These experiments give insight into how the technique
 % works at scale and what bottlenecks exist.
 
-/subsection{Filtering Classifier}
-The filtering classifier is the root of the classification hierarchy. It is the
-first determinant for whether a document should be further considered or discarded when querying. As such, evaluation speed is more important here than on lower levels. The approximate distribution of the classes is summarized in Figure \ref{fig:top-dist} showing that this task proves to be highly computationally intensive with the classes not naturally forming clusters when feature reduced. For the filtering classifier, we use an ensemble of decision tree classifiers referred to as a Random Forest Classifier (RFC).
-
-\textbf{Decision Tree: } A decision tree classifier, as the name implies, is structured as a tree with each node making a decision as to which direction to proceed based on an internal metric, usually either a gini measurement or entropy. This classifier is particularly useful because although the classifier trains more slowly than others, prediction is much faster.
+\subsubsection{Deciding Classifiers}
+paragraph
+\\
+\textbf{Deep Neural Networks}
+\\
+\textbf{Long-Short Term Neural Networks}
+\\
+\textbf{Gaussian Mixture Model}
+\\
 
 \begin{figure}
     \centering
@@ -133,15 +158,3 @@ first determinant for whether a document should be further considered or discard
     \label{fig:top-dist}
 \end{figure}
 
-\subsubsection{General Classifier}
-This task is more complex, especially for \textit{Interacting Materials} as it
-has a majority of the classes in the database. To evaluate performance with this
-classifier we only use the RFC as it is hypothesized that an SVM model would not
-be performant.
-
-\subsubsection{Specific Classifier}
-As the most complex task in the classification hierarchy, we use two ensemble
-classifiers to compare with the DNN implementation. The first has been used in
-the other evaluations, RFC, but the second is an AdaBoost classifier. This
-classifier uses a collection of weak learners to, as a whole, form a powerful
-classification agent.
