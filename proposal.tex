@@ -76,6 +76,14 @@
 \SetAlCapFnt{\small}
 \SetAlCapNameFnt{\small}
 
+\def\Snospace~{\S{}}
+\renewcommand*\sectionautorefname{\Snospace}
+\def\sectionautorefname{\Snospace}
+\def\subsectionautorefname{\Snospace}
+\def\subsubsectionautorefname{\Snospace}
+\def\chapterautorefname{\Snospace}
+
+
 % cleveref goes last to get alg name right
 \usepackage[capitalize,noabbrev]{cleveref}
 
