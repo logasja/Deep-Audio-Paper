@@ -161,7 +161,7 @@ Similarly, the complexity of HMMs increases when they need to support tens of
 classes, as a model must be trained for each class.
 Additionally, neither technique takes advantage of domain knowledge 
 and do not conform to the machine hearing principles outlined
-in~\cref{motivation:machine-hearing}.
+in~\autoref{motivation:machine-hearing}.
 
 While auto-encoding with CNNs does not work well for audio retrieval,
 encoders based on Recurrent neural network (RNN) do not suffer from this
@@ -176,19 +176,20 @@ First, RNN-based encoders are computationally efficient.
 Second, they create compact representations that take time into account 
 and can be used with any number of off-the-shelf classifiers.
 
-\AJ{Why do we need the following paragraph?}
+\AJ{Why do we need the following paragraph? --
 Researchers continue to seek the biological neural code for audio
 encoding~\cite{Eggermont2001}. 
 Through studies of the biological systems that convert sound waves to neural
 responses, researchers have been able to emulate certain steps of the audio
 encoding pipeline with other steps requiring speculation. 
 Smith and Lewicki present a non-linear model based on population spike code 
-to encode waveforms \cite{smith-efficient-2006}. 
+to encode waveforms~\cite{smith-efficient-2006}. 
 They illustrate that idealized spikes encode precise temporal positions and
 magnitudes of underlying acoustic features. 
 This effort provides a method to efficiently extract a coding of natural 
 sounds, making sure the classifiers are working with an information-rich
 representation.
+}
 
 \begin{table}[t]
     \centering

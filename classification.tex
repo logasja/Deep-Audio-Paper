@@ -93,11 +93,12 @@ Another consideration when working with a hierarchical classifier is whether the
     \label{tab:classifier}
 \end{table}
 
-\begin{itemize}
+%\begin{itemize}
     % \item Argue non-uniform classifier use
-    \item Filtering Classifiers
-    \item Deciding Classifiers
-\end{itemize}
+    % \item Filtering Classifiers
+    % \item Deciding Classifiers
+%\end{itemize}
+
 Specific contexts of audio classification have long been an area of interest and thus certain audio sub-domains have been extensively studied for optimal classification techniques. It is unlikely that in human perception all different listening tasks are accomplished through the same process. Instead there are likely specialized systems that have evolved to best handle specific classification tasks. Using this intuition and the ability to do so through hierarchical classification, we pick and choose classifiers and representations that work best for each sub-domain. As this is a tree hierarchy, we have branch and leaf nodes that are comprised of their own classifier. Here, we term them \textit{Filtering} and \textit{Deciding} classifiers.
 
 \subsubsection{Filtering Classifiers}
@@ -132,8 +133,12 @@ where $\omega$ is the normal vector to the hyper-plane, $y_i$ is the target, $\v
 \textbf{K-Nearest Neighbors} is a classification method that uses the plurality vote of its neighbor samples by some heuristic of distance to determine its belonging to a class. KNN is known as a \textit{lazy learning} method, meaning the classifier defers its computation until classification evaluation. As such, all points are retained in the model. Any custom heuristic for distance can be used but the most common is Euclidean distance or Manhattan Distance. One of the more challenging parts of this classification approach is the tuning of the neighbor number hyper-parameter as at k=1 the class is determined by the first closest neighbor and at k=n the class is whatever the most numerous of the classes is present. To use this classifier in a probabilistic case, the number of matching neighbors and the distances can be used for determination. Probability is computed such that the radial area surrounding the k neighbors creates a probability distribution. \cite{cheng-evaluating-2009}
 \\
 \\
-\textbf{Random Forests} are a supervised ensemble classification learning method. This method uses a collection of decision tree classifiers and at evaluation time provides the mode of the classification prediction. This method attempts to correct for decision trees tendency to overfit the training set. Specifically, deep trees more often tend to overfit, have low bias, and very high variance. Thus, by training many trees on multiple parts of the data, it is expected that variance will be reduced with only a small increase in bias. To train a random forest, the bagging algorithm is employed. This algorithm takes a training set and selects a random sample with replacement to fit a tree to. The bagging approach decreases the model variance, which as mentioned before is a problem in decision trees, and only slightly increases the bias. Evaluation of the model is straightforward as it is either an average of the data in the regression case or is majority vote in classification. To provide probability to the random forest classifier, the choice between two paths is treated as a probability density function (pdf) and both branches are evaluated if it meets some criterion for acceptable probability bounds \cite{. This approach 
-\\
+\textbf{Probabilistic Random Forests} are a supervised ensemble classification learning method. This method uses a collection of decision tree classifiers and at evaluation time provides the mode of the classification prediction. This method attempts to correct for decision trees tendency to overfit the training set. Specifically, deep trees more often tend to overfit, have low bias, and very high variance. Thus, by training many trees on multiple parts of the data, it is expected that variance will be reduced with only a small increase in bias. To train a random forest, the bagging algorithm is employed. This algorithm takes a training set and selects a random sample with replacement to fit a tree to. The bagging approach decreases the model variance, which as mentioned before is a problem in decision trees, and only slightly increases the bias. Evaluation of the model is straightforward as it is either an average of the data in the regression case or is majority vote in classification. To provide probability to the random forest classifier, the choice between two paths is treated as a probability density function (pdf) and both branches are evaluated if it meets some criterion for acceptable probability bounds \cite{reis-probabilistic-2018}. This approach modifies the \textit{Gini impurity} function
+
+\begin{equation}
+    G_n \xrightarrow{}    \bar{G_n} = 1 - \sum_{j=1 \dotsc k} \bar{P}_{n,A_j}
+\end{equation}
+
 % \subsubsection{Annotation Normalization} Annotation normalization is carried
 % out on subsets of both the ESC-50 and AudioSet database. Performance is
 % measured in terms of execution time, efficiency, and overall annotation
@@ -158,19 +163,20 @@ where $\omega$ is the normal vector to the hyper-plane, $y_i$ is the target, $\v
     \caption{Decision classifiers and their properties.}
     \label{tab:dec-class}
 \end{table}
-paragraph
+Deciding classifiers are those found on the leaf nodes of the hierarchy tree. These classifiers have the purpose of making some determination on the remaining data and as such are able to be much more definitive with their result. In particular, this means the models at these leaf nodes are able to be more complex and take longer per sample to execute as ideally much of the database has been ruled out already. We do however, retain probabilistic classification because it serves as a heuristic for ranking the retrieved documents.
 \\
-\textbf{Deep Neural Networks}
 \\
-\textbf{Long-Short Term Neural Networks}
+\textbf{Deep Neural Networks} are a method of supervised classification that forms a feed-forward graph of connected neurons that only activate if some threshold is met. A neural network is meant to model a collection of neurons in the human brain with them only activating if sufficiently excited. Even though this model falls short of actually modeling neurons, it performs well in many applications. Network neurons are organized into layers that form a row of neurons that is normally fully connected to the previous row or, in the base case, the inputs. A network can be as simple as a single layer, but in most applications a large number of layers and neurons are required. Unfortunately, the algorithm that trains these networks is computationally expensive and on single thread computers can take hours to converge. However, the algorithm is embarrassingly parallel and thus can be much more efficiently performed on GPU or TPU hardware. This allows for networks to be much larger and more complex without needing to sacrifice training time, these networks are known as Deep Neural Networks (DNN). To determine the probability of each class predicted, the final layer is evaluated with the softmax function as in probability theory it is used to represent a categorical distribution.
 \\
-\textbf{Gaussian Mixture Model}
 \\
+\textbf{Recurrent Neural Networks} are an extension of neural network with the major difference that they have a temporal component. To account for this new component, the backpropagation algorithm is modified to the backpropagation through time algorithm in which time is expresed by an ordered series of calculations linking one time step to the next allowing backpropagation to proceed as usual. The process of carrying memory forward can be described as
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.45\textwidth]{example-image-a}
-    \caption{Plot of feature reduced samples from music, animal, speech, and environmental sounds}
-    \label{fig:top-dist}
-\end{figure}
-
+\begin{equation}
+    h_t=\phi(Wx_t+Uh_{t-1})
+\end{equation}
+\\
+with $h_t$ the hidden state at time t, $x_t$ the input at time t, $W$ the weight matrix, and $U$ the transition matrix. Although there is more information from the past, these neural networks also share the vanishing gradient issue deep neural networks have. Long Short-Term Memory units (LSTMs) were introduced in an attempt to solve the vanishing gradient problem. LSTMs contain information in a gated cell that can be written to or read from and only allows these operations if some analog value passes a threshold. By gating with a differential value, the backpropagation algorithm can iteratively determine when it is best to recall, write, or forget the stored information. This allows the network to use data from layers more than one layer behind it.
+\\
+\\
+\textbf{Gaussian Mixture Model} is a probabilistic model assuming the data are generated by a number of Gaussian distributions with unknown parameters. GMMs are able to be trained either in an unsupervised or supervised manner, in this approach we use the supervised approach. The model is trained using the expectation-maximization algorithm which determines the component weights, means, and variances. Although this approach has seen success on many audio applications in the past, training complexity is high and thus training on large datasets is time intensive. This model is naturally probabilistic and as such no extra steps need to be taken for probability estimation.
+\\
