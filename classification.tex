@@ -1,13 +1,15 @@
 \section{Classification}
 
+In this section, we discuss the architecture of the classification model in
+\sys. We begin by making the case for a bespoke model to enable performant and
+accurate content-based audio retrieval in~\cref{sec:classification-case}.
+We then present our hierarchy of classifiers that is derived from 
+machine hearing principles in~\cref{sec:classification-hierarchy}.
+Lastly, we describe the methods used in \sys to serve as filtering and
+decision-making classifiers in~\cref{sec:classification-methods}.
+
 \subsection{A General Taxonomy of Sound}
-% \begin{itemize}
-%     \item Specialized models vs General model
-%     \item Human perception as field of study
-%     \item Gaver Taxonomy
-%     \item Lewicki Added Context
-%     \item Listening and hearing
-% \end{itemize}
+\label{sec:classification-case}
 
 In the audio domain, it is often desirable to train specialized models instead
 of investigating general models. For example, performant models have been
@@ -52,17 +54,7 @@ indicating that once the agent determines a sound is music, it will begin
 listening to it differently.
 
 \subsection{Hierarchy of Classifiers}
-
-% \begin{itemize}
-%     \item Hierarchical classification
-%     \item Hierarchical vs Flat
-%     \item Error propagation
-%     \item Low level classifier overfitting
-%     \item Probabilistic classifiers
-%     \item Frame as formation of a probabilistic function with predicates (Blazeit)
-%     \item Be sure to mention this is a task for specific tagging and retrieval (we do not wish to do the NLP lifting)
-% \end{itemize}
-
+\label{sec:classification-hierarchy}
 
 \begin{figure}[h!]
     \centering
@@ -81,6 +73,7 @@ Error propagation is a major issue in this approach and if not managed can ruin 
 Another consideration when working with a hierarchical classifier is whether the lowest level classes have enough examples to train a general model. If too few examples of a low-level class are in the database, the classifiers will begin to overfit. To mitigate this issue, another threshold policy is introduced. This time, the threshold is the minimum number of examples required to allow a classifier to be trained on a certain class. This results in instances of the model trained on a smaller database being less precise in their retrieval.
 
 \subsection{Classification Methods}
+\label{sec:classification-methods}
 
 \begin{table}[t]
     \centering
@@ -106,7 +99,7 @@ Specific contexts of audio classification have long been an area of interest and
 \begin{table}[h]
     \begin{tabular}{c|cc}
         Classifier & Training & Prediction \\ \hline
-        SVM & $O(n^2p+n^3$ & $O(n_{sv}p)$ \\
+        SVM & $O(n^2p+n^3)$ & $O(n_{sv}p)$ \\
         KNN & - & $O(np)$ \\
         RFC & $O(n^2\sqrt{p}n_{trees})$ & $O(pn_{trees})$
     \end{tabular}
