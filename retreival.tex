@@ -15,3 +15,10 @@ Previous attempts with audio retrieval have trained models not only on the audio
 Most of the preprocessing steps are performed on the CPU and are not optimized for highly parallel architectures. Thus, the load times for a five second audio clip is approximately 250ms which means at scale with variable length audio and thousands, if not millions of records, this approach is infeasible for use at query time. However, front-loading too much of the work would result in a much larger ingestion cost, and as such a balance is pursued.
 \\
 \textbf{Processing at Ingestion Time.} \sys attempts to mitigate the computationally expensive task of processing the audio documents by transforming them to a feature vector that is saved in a table as the audio documents are added to the database. This increases the initialization cost of the system, with a database of approximately 2000 needing about 8 minutes and a database of 9500 needing about 50 minutes.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/Preprocessing-Timing-Factors.png}
+    \caption{Time component of the preprocessing steps}
+    \label{fig:time-component}
+\end{figure}

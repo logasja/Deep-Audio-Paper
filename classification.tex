@@ -1,14 +1,18 @@
 \section{Classification}
 
-In this section, we discuss the architecture of the classification model in
-\sys. We begin by making the case for a bespoke model to enable performant and
+In this section, we present the architecture of the classification model in
+\sys. 
+%
+We begin by making the case for a generalized model to enable performant and
 accurate content-based audio retrieval in~\cref{sec:classification-case}.
-We then present our hierarchy of classifiers that is derived from 
+%
+We then present our two-level hierarchy of classifiers that is derived from 
 machine hearing principles in~\cref{sec:classification-hierarchy}.
-Lastly, we describe the methods used in \sys to serve as filtering and
-decision-making classifiers in~\cref{sec:classification-methods}.
+%
+Lastly, we describe the methods used in \sys to serve as top-level and
+bottom-level classifiers in~\cref{sec:classification-methods}.
 
-\subsection{A General Taxonomy of Sound}
+\subsection{Case for a Generalized Classification Model}
 \label{sec:classification-case}
 
 In the audio domain, it is often desirable to train specialized models instead
@@ -53,7 +57,7 @@ different. Thus, music in the taxonomy makes up its own branch in the hierarchy
 indicating that once the agent determines a sound is music, it will begin
 listening to it differently.
 
-\subsection{Hierarchy of Classifiers}
+\subsection{Two-Level Hierarchy of Classifiers}
 \label{sec:classification-hierarchy}
 
 \begin{figure}[h!]
@@ -94,7 +98,7 @@ Another consideration when working with a hierarchical classifier is whether the
 
 Specific contexts of audio classification have long been an area of interest and thus certain audio sub-domains have been extensively studied for optimal classification techniques. It is unlikely that in human perception all different listening tasks are accomplished through the same process. Instead there are likely specialized systems that have evolved to best handle specific classification tasks. Using this intuition and the ability to do so through hierarchical classification, we pick and choose classifiers and representations that work best for each sub-domain. As this is a tree hierarchy, we have branch and leaf nodes that are comprised of their own classifier. Here, we term them \textit{Filtering} and \textit{Deciding} classifiers.
 
-\subsubsection{Filtering Classifiers}
+\subsubsection{Top-Level Classifiers}
 
 \begin{table}[h]
     \begin{tabular}{c|cc}
@@ -145,7 +149,8 @@ where $\omega$ is the normal vector to the hyper-plane, $y_i$ is the target, $\v
 % normalization task. These experiments give insight into how the technique
 % works at scale and what bottlenecks exist.
 
-\subsubsection{Deciding Classifiers}
+\subsubsection{Bottom-Level Classifiers}
+
 \begin{table}[h]
     \begin{tabular}{c|cc}
         Classifier & Training & Prediction \\ \hline
