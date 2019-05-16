@@ -38,6 +38,8 @@ The Freesound database is made up entirely of user-submitted and tagged audio do
 
 
 \subsubsection{Encoding Results}
+\label{sec:evaluation-encoding}
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{figures/pca-cluster-hl.png}
@@ -93,7 +95,47 @@ Classifier performance at different window sizes and features (remember, have ru
     \label{fig:a}
 \end{figure}
 
-\subsubsection{Pure Classification Performance}
+\subsubsection{High-Level Classification}
+
+\begin{figure}
+    \centering
+    \subfloat[SVM]{{\includegraphics[width=0.25\textwidth]{figures/FSD-SVM.png}\label{fig:fsd-svm}}}
+    \subfloat[KNN]{{\includegraphics[width=0.25\textwidth]{figures/FSD-KNN.png}\label{fig:fsd-knn}}}
+    \hfill
+    \subfloat[RFC]{{\includegraphics[width=0.25\textwidth]{figures/FSD-RFC.png}\label{fig:fsd-rfc}}}
+    \caption{Training and testing statistics of high level classifiers on the FreeSound Database.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \subfloat[SVM]{{\includegraphics[width=0.25\textwidth]{figures/ESC-50-SVM.png}\label{fig:esc-50-svm}}}
+    \subfloat[KNN]{{\includegraphics[width=0.25\textwidth]{figures/ESC-50-KNN.png}\label{fig:esc-50-knn}}}
+    \hfill
+    \subfloat[RFC]{{\includegraphics[width=0.25\textwidth]{figures/ESC-50-RFC.png}\label{fig:esc-50-rfc}}}
+    \caption{Training and testing statistics of high level classifiers on the ESC-50 Database.}
+\end{figure}
+
+\subsubsection{Low-level Classification}
+
+\begin{figure}
+    \centering
+    \subfloat[SVM]{{\includegraphics[width=0.25\textwidth]{figures/FSD-SVM.png}\label{fig:fsd-svm}}}
+    \subfloat[KNN]{{\includegraphics[width=0.25\textwidth]{figures/FSD-KNN.png}\label{fig:fsd-knn}}}
+    \hfill
+    \subfloat[RFC]{{\includegraphics[width=0.25\textwidth]{figures/FSD-RFC.png}\label{fig:fsd-rfc}}}
+    \caption{Training and testing statistics of high level classifiers on the FreeSound Database.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \subfloat[SVM]{{\includegraphics[width=0.25\textwidth]{figures/ESC-50-SVM.png}\label{fig:esc-50-svm}}}
+    \subfloat[KNN]{{\includegraphics[width=0.25\textwidth]{figures/ESC-50-KNN.png}\label{fig:esc-50-knn}}}
+    \hfill
+    \subfloat[RFC]{{\includegraphics[width=0.25\textwidth]{figures/ESC-50-RFC.png}\label{fig:esc-50-rfc}}}
+    \caption{Training and testing statistics of high level classifiers on the ESC-50 Database.}
+\end{figure}
+
+\subsubsection{Full Classification Performance}
 
 Cross-validated performance of each subclassifier and performance of hierarchical
 
