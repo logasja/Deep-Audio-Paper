@@ -365,28 +365,28 @@ However, the optimal number of principal components depends on the dataset
 and must be carefully chosen as the features may already be of sufficient
 variance and dropping any will reduce the efficacy of the model. 
 %
-This is an iterative technique with the first component being computed thus:
-\begin{equation}
-    \textbf{w}_{(1)} = \argmax_{||\textbf{w}||=1}{\sum_{i}(\textbf{x}_{(i)} \cdot \textbf{w})^2}
-\end{equation}
-%
-Here, \textbf{x} is a row vector of input data \textbf{X} and \textbf{w} is 
-the coefficient vector, constrained to be the unit vector. 
-%
-The subsequent components are computed by subtracting the first \textit{k} - 1
-principal components from \textbf{X} thus:
-\begin{equation}
-    \hat{\textbf{X}}_k = \textbf{X} - \sum_{s=1}^{k-1}{\textbf{X}\textbf{w}_{(s)}\textbf{w}_{(s)}^\textbf{T}}
-\end{equation}
-%
-and afterward finding a weight vector that extracts the maximum variance from
-the new data matrix:
-\begin{equation}
-    \textbf{w}_{(\textit{k})} = \argmax_{||\textbf{w}||=1}(||\hat{\textbf{X}}_{\textit{k}}\textbf{w}||^2)
-\end{equation}
-%
-It turns out in that the weight vectors computed using this iterative technique
-are eigenvectors of $ \textbf{X}^\textbf{T}\textbf{X} $.
+% This is an iterative technique with the first component being computed thus:
+% \begin{equation}
+%     \textbf{w}_{(1)} = \argmax_{||\textbf{w}||=1}{\sum_{i}(\textbf{x}_{(i)} \cdot \textbf{w})^2}
+% \end{equation}
+% %
+% Here, \textbf{x} is a row vector of input data \textbf{X} and \textbf{w} is 
+% the coefficient vector, constrained to be the unit vector. 
+% %
+% The subsequent components are computed by subtracting the first \textit{k} - 1
+% principal components from \textbf{X} thus:
+% \begin{equation}
+%     \hat{\textbf{X}}_k = \textbf{X} - \sum_{s=1}^{k-1}{\textbf{X}\textbf{w}_{(s)}\textbf{w}_{(s)}^\textbf{T}}
+% \end{equation}
+% %
+% and afterward finding a weight vector that extracts the maximum variance from
+% the new data matrix:
+% \begin{equation}
+%     \textbf{w}_{(\textit{k})} = \argmax_{||\textbf{w}||=1}(||\hat{\textbf{X}}_{\textit{k}}\textbf{w}||^2)
+% \end{equation}
+% %
+% It turns out in that the weight vectors computed using this iterative technique
+% are eigenvectors of $ \textbf{X}^\textbf{T}\textbf{X} $.
 %
 We demonstrate that these feature transformation techniques effectively
 shrink the feature vector in~\cref{sec:evaluation-encoding}.
