@@ -15,7 +15,6 @@ match between acoustic features and the text queries. Its performance depends on
 both the size of the database and the specificity of the query. To examine
 performance across environments, we choose a clean and a dirty database: ESC-50
 \cite{Piczak2015} and Freesound.
-
 \\
 \textbf{ESC-50} This clean database is made available on GitHub for environmental sound
 classification. It is maintained such that the tag vocabulary is fixed and each
@@ -25,43 +24,59 @@ normalized across the database. This makes for a very clean database with little
 noise in both audio and annotation. It has 50 semantic classes with 40 examples
 per class arranged into 5 major categories. However, the major categories do not
 match the Gaver taxonomy and so were manually separated as in Table
-~\ref{tab:relabel}. The database's sound documents come from the Freesound
+~\cref{tab:relabel}. The database's sound documents come from the Freesound
 project with the author providing uniform tags and normalizing the audio
 manually \cite{Font2013}.
-
 \\
 \textbf{Freesound} The Freesound database is made up entirely of user-submitted and tagged audio documents. This is used to test the efficacy of the method on a real-world unstructured database. The documents in the database are in a variety of audio formats and lengths. Additionally, a portion of the documents contain multiple audio objects that overlap.
+
+\subsection{Sample Balancing}
+\begin{figure}[h]
+    \centering
+    \includegraphics{}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+Although in both the Freesound and ESC-50 database the distribution of classes
 
 \subsection{Window Size}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=.48\textwidth]{figures/ROC-AUC-Window-Compare.png}
-    \caption{Comparison of ROC AUC score when a SVM classifier is trained on given window sizes.}
+    \caption{Comparison of window sizes across three metrics.}
     \label{fig:roc-auc-window}
 \end{figure}
 
-Choosing the size of the window determines the granularity of the feature vector as each window's feature matrix is reduced into a vector for training. If the window is too large we obtain a single feature vector, but it is likely too generic to be useful in classification. On the other hand, a window that is too small will increase the time required to complete preprocessing, training, and evaluation steps and increase the size of the feature table. To determine the optimal window size, we evaluated five window sizes with each high-level classifier. The optimal window size is the one that balances training time, evaluation time, and classification accuracy.
+Choosing the size of the window determines the granularity of the feature vector as each window's feature matrix is reduced into a vector for training. If the window is too large we obtain a single feature vector, but it is likely too generic to be useful in classification. On the other hand, a window that is too small will increase the time required to complete preprocessing, training, and evaluation steps and increase the size of the feature table. To determine the optimal window size, we evaluated five window sizes with each high-level classifier. The optimal window size is the one that balances training time, evaluation time, classification accuracy, and classifier confidence.
 
-\cref{fig:roc-auc-window} summarizes the initial experiments done to determine optimal window size. This experiment trained an SVM classifier with default hyper-parameters on the highest level of the hierarchy for each time window size to determine which window is the most clearly separable. As seen in the figure, the classifier performs best on a quarter-second window however the amount of time necessary to both score and fit a classifier to the dataset much larger than that of even a half-second window. Here, we see that the variance
+The first experiment trained an SVM classifier with default hyper-parameters on the highest level of the hierarchy for each time window size to determine which window is the most clearly separable. The classifier was then tested with 10-fold cross-validation on the entire dataset and the mean and standard deviation of the fit time, score time, and ROC AUC score over all 10 folds were collected. As seen in \cref{fig:roc-auc-window}, the classifier performs best on a quarter-second window however the amount of time necessary to both score and fit a classifier to the dataset much larger than that of even a half-second window. here, we see that the second best choice of a half-second window performs about as well and does not have as large of a fitting and scoring cost. Though, one may be tempted to use the five second window as it has the lowest fit and scoring time across all windows, however our classification confidence tests show this approach to be sub-optimal.
+
+\subsection{Hierarchical Classifier}
+
+\subsubsection{Comparison with Baseline}
+Here, we compare the performance of standard classification techniques with the hierarchical approach.
+
+\subsubsection{Convolutional Neural Network}
+Here, we compare performance of CNNs with that of the hierarchical approach.
+
 
 \subsection{Dimensionality Reduction}
-As the standard length of the feature vector derived from each audio file is 129 values, training time suffers from the curse of dimensionality. To mitigate this effect a combination of feature selection and reduction techniques are used. The initial feature columns are reduced by selecting the top K features, measured by some heuristic (e.g. chi, information gain, gini). The remaining features are then transformed by a feature reduction technique (e.g. ICA, PCA, LDA) to find a better projection of the data for classification.
+The standard length of the feature vector derived from each audio file is 129 values, causing training time to suffer from the curse of dimensionality. To mitigate this effect a combination of feature selection and reduction techniques are used. The initial feature columns are reduced by selecting the top K features, measured by some heuristic (e.g. chi, information gain, gini). The remaining features are then transformed by a feature reduction technique (e.g. ICA, PCA, LDA) to find a better projection of the data for classification.
 
 \subsection{Filtering Classifier}
-The evaluation of a filtering classifier involves creating
+As stated before, the filtering classifier has much different goals than that of the deciding classifier and as such has a different heuristic of optimality. The optimal classifiers in this case value scoring time and uncertainty in misclassification over pure accuracy performance.
+
 \subsubsection{Training}
 
 \subsubsection{Evaluation}
 
 \subsection{Deciding Classifier Training}
+The deciding classifier's goals are more in line with those of traditional classifiers. The training and evaluation time of this classifier is much less important than its classification accuracy and precision. This is due to the idea that the evaluation task will be executed on much fewer documents than the filtering classifiers.
 
 \subsubsection{Training}
 
 \subsubsection{Evaluation}
-
-\subsubsection{Encoding Results}
-\label{sec:evaluation-encoding}
 
 \begin{figure}[h]
     \centering
@@ -70,18 +85,6 @@ The evaluation of a filtering classifier involves creating
     \label{fig:pcahl}
 \end{figure}
 
-\begin{table}[t]
-    \centering
-    \begin{tabular}{c|cc}
-    \textbf{Window} & \textbf{Read} & \textbf{Process} \\ \hline
-    250              & 7840           & 37318                    \\
-    2000             & 2413           & 4831                   
-    \end{tabular}
-    \caption{The average read and processing time in ms for 400 documents.}
-    \label{tab:base-time}
-\end{table}
-
-\subsubsection{Training Evaluation}
 
 \begin{figure}
     \centering
