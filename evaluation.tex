@@ -33,16 +33,7 @@ manually \cite{Font2013}.
 \textbf{Freesound} The Freesound database is made up entirely of user-submitted and tagged audio documents. This is used to test the efficacy of the method on a real-world unstructured database. The documents in the database are in a variety of audio formats and lengths. Additionally, a portion of the documents contain multiple audio objects that overlap.
 
 \subsection{Window Size}
-Choosing the size of the window determines the granularity of the feature vector as each window's feature matrix is squeezed into a vector for training. If the window is too large we obtain a single feature vector, but it is likely too generic to be useful in classification. On the other hand, a window that is too small will increase the time required to complete preprocessing, training, and evaluation steps and increase the size of the feature table. To determine the optimal window size, we evaluated five window sizes with each high-level classifier. The optimal window size is the one that balances training time, evaluation time, classification accuracy, and level of certainty when misclassified sample.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.5\textwidth]{figures/Per.png}
-    \caption{Time component of the preprocessing steps}
-    \label{fig:time-component}
-\end{figure}
-
-\cref{fig:time-component} shows that the majority of the 
+Choosing the size of the window determines the granularity of the feature vector as each window's feature matrix is reduced into a vector for training. If the window is too large we obtain a single feature vector, but it is likely too generic to be useful in classification. On the other hand, a window that is too small will increase the time required to complete preprocessing, training, and evaluation steps and increase the size of the feature table. To determine the optimal window size, we evaluated five window sizes with each high-level classifier. The optimal window size is the one that balances training time, evaluation time, and classification accuracy.
 
 \subsubsection{Preprocessing}
 
