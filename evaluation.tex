@@ -35,8 +35,20 @@ manually \cite{Font2013}.
 \subsection{Window Size}
 Choosing the size of the window determines the granularity of the feature vector as each window's feature matrix is reduced into a vector for training. If the window is too large we obtain a single feature vector, but it is likely too generic to be useful in classification. On the other hand, a window that is too small will increase the time required to complete preprocessing, training, and evaluation steps and increase the size of the feature table. To determine the optimal window size, we evaluated five window sizes with each high-level classifier. The optimal window size is the one that balances training time, evaluation time, and classification accuracy.
 
-\subsubsection{Preprocessing}
+\subsection{Dimensionality Reduction}
+As the standard length of the feature vector derived from each audio file is 129 values, training time suffers from the curse of dimensionality. To mitigate this effect a combination of feature selection and reduction techniques are used. The initial feature columns are reduced by selecting the top K features, measured by some heuristic (e.g. chi, information gain, gini). The remaining features are then transformed by a feature reduction technique (e.g. ICA, PCA, LDA) to find a better projection of the data for classification.
 
+\subsection{Filtering Classifier}
+The evaluation of a filtering classifier involves creating
+\subsubsection{Training}
+
+\subsubsection{Evaluation}
+
+\subsection{Deciding Classifier Training}
+
+\subsubsection{Training}
+
+\subsubsection{Evaluation}
 
 \subsubsection{Encoding Results}
 \label{sec:evaluation-encoding}
