@@ -16,7 +16,7 @@ Most of the preprocessing steps are performed on the CPU and are not optimized f
 \\
 \textbf{Processing at Ingestion Time.} \sys attempts to mitigate the computationally expensive task of processing the audio documents by transforming them to a feature vector that is saved in a table as the audio documents are added to the database. This increases the initialization cost of the system, with a database of approximately 2000 needing about 8 minutes and a database of 9500 needing about 50 minutes.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=.5\textwidth]{figures/Preprocessing-Timing-Factors.png}
     \caption{Time component of the preprocessing steps}
