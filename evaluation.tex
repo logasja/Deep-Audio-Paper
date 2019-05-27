@@ -37,9 +37,13 @@ manually \cite{Font2013}.
     \caption{Sample distribution over the window sizes under consideration.}
     \label{fig:sample-distribution}
 \end{figure}
-Although in both the Freesound and ESC-50 database the distribution of classes
+Although in both the Freesound and ESC-50 database the distribution of classes is initially nearly equivalent, preprocessing alters this significantly. After extracting multiple feature vectors from the documents, the distribution much more favors some classes over other. This is likely due to the trimming of the documents of silence and differing document lengths. There are two paths to mitigate this effect: reduce the number of samples in the majority class to make them more equal or add duplicate samples from the minority class. Both of these approaches have risks associated with them, namely a loss in generalizability, \cref{fig:sample-distribution} illustrates the exponential relationship between window size and distribution of unbalance for the topmost classes of the hierarchy.
+
+To determine the optimal approach for supersampling or subsampling, we train RFCs as they are the most of the classifiers used to overfit with duplicates. The classifiers trained on these sets are compared to the AUC-ROC curve of an unbalanced training set to identify the most optimal approach.
 
 \subsection{Window Size}
+
+Choosing the size of the window determines the granularity of the feature vector as each window's feature matrix is reduced into a vector for training. If the window is too large we obtain a single feature vector, but it is likely too generic to be useful in classification. On the other hand, a window that is too small will increase the time required to complete preprocessing, training, and evaluation steps and increase the size of the feature table. To determine the optimal window size, we evaluated five window sizes with each high-level classifier. The optimal window size is the one that balances training time, evaluation time, classification accuracy, and classifier confidence.
 
 \begin{figure}[h]
     \centering
@@ -47,8 +51,6 @@ Although in both the Freesound and ESC-50 database the distribution of classes
     \caption{Comparison of window sizes across three metrics.}
     \label{fig:roc-auc-window}
 \end{figure}
-
-Choosing the size of the window determines the granularity of the feature vector as each window's feature matrix is reduced into a vector for training. If the window is too large we obtain a single feature vector, but it is likely too generic to be useful in classification. On the other hand, a window that is too small will increase the time required to complete preprocessing, training, and evaluation steps and increase the size of the feature table. To determine the optimal window size, we evaluated five window sizes with each high-level classifier. The optimal window size is the one that balances training time, evaluation time, classification accuracy, and classifier confidence.
 
 The first experiment trained an SVM classifier with default hyper-parameters on the highest level of the hierarchy for each time window size to determine which window is the most clearly separable. The classifier was then tested with 10-fold cross-validation on the entire dataset and the mean and standard deviation of the fit time, score time, and ROC AUC score over all 10 folds were collected. As seen in \cref{fig:roc-auc-window}, the classifier performs best on a quarter-second window however the amount of time necessary to both score and fit a classifier to the dataset much larger than that of even a half-second window. here, we see that the second best choice of a half-second window performs about as well and does not have as large of a fitting and scoring cost. Though, one may be tempted to use the five second window as it has the lowest fit and scoring time across all windows, however our classification confidence tests show this approach to be sub-optimal.
 
@@ -68,6 +70,7 @@ The standard length of the feature vector derived from each audio file is 129 va
 As stated before, the filtering classifier has much different goals than that of the deciding classifier and as such has a different heuristic of optimality. The optimal classifiers in this case value scoring time and uncertainty in misclassification over pure accuracy performance.
 
 \subsubsection{Training}
+Each of the subcategories in the hierarchy were individually trained, determining their optimal classifier. This means an extra training cost is incurred for each interim classifier. We also consider the propagation of error in hierarchical classifiers when choosing an optimal classifier. As shown in our window size tests, some probabilistic representations are more or less confident in classification. We aim to have as little confidence as possible in misclassified results for these classifiers. This is done even to the detriment of confidence in correct classifications.
 
 \subsubsection{Evaluation}
 
