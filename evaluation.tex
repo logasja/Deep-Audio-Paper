@@ -39,7 +39,14 @@ manually \cite{Font2013}.
 \end{figure}
 Although in both the Freesound and ESC-50 database the distribution of classes is initially nearly equivalent, preprocessing alters this significantly. After extracting multiple feature vectors from the documents, the distribution much more favors some classes over other. This is likely due to the trimming of the documents of silence and differing document lengths. There are two paths to mitigate this effect: reduce the number of samples in the majority class to make them more equal or add duplicate samples from the minority class. Both of these approaches have risks associated with them, namely a loss in generalizability, \cref{fig:sample-distribution} illustrates the exponential relationship between window size and distribution of unbalance for the topmost classes of the hierarchy.
 
-To determine the optimal approach for supersampling or subsampling, we train RFCs as they are the most of the classifiers used to overfit with duplicates. The classifiers trained on these sets are compared to the AUC-ROC curve of an unbalanced training set to identify the most optimal approach.
+To determine the optimal approach for super-sampling or sub-sampling, we train RFCs as they are the most of the classifiers used to overfit with duplicates. The classifiers trained on these sets are compared to the AUC-ROC curve of an unbalanced training set to identify the most optimal approach. \cref{fig:sample-auc-roc} illustrates the curves obtained when trained on an unbalanced, sub-sampled, and super-sampled dataset. It is clear from these plots that the unbalanced is the worst performing with a curve closer to chance. Sub-sampled is second-best with a slightly more convex curve though still approximately the same as the unbalanced set. Here, the super-sampled training approach is clearly the most optimal approach. However it incurs a greater training time and special care must be taken to avoid introducing 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.45\textwidth]{figures/auc-roc-sampled.png}
+    \caption{Comparative AUC-ROC curves when trained on the same classifier.}
+    \label{fig:sample-auc-roc}
+\end{figure}
 
 \subsection{Window Size}
 
