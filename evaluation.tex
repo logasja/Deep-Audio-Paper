@@ -66,20 +66,12 @@ The standard length of the feature vector derived from each audio file is 129 va
 
 To find the optimal combination and hyperparameters of feature reduction on the data, we use a SVM classifier and search the parameter space for an optimum. It was found that the top 50 features were most influential in performance when scored with the  ${chi^2}$ heuristic, a summary of the tests run can be found in \cref{fig:k-feat-res}.
 
-\subsection{Filtering Classifier}
-As stated before, the filtering classifier has much different goals than that of the deciding classifier and as such has a different heuristic of optimality. The optimal classifiers in this case value scoring time and uncertainty in misclassification over pure accuracy performance.
-
-\subsubsection{Training}
-Each of the subcategories in the hierarchy were individually trained, determining their optimal classifier. This means an extra training cost is incurred for each interim classifier. We also consider the propagation of error in hierarchical classifiers when choosing an optimal classifier. As shown in our window size tests, some probabilistic representations are more or less confident in classification. We aim to have as little confidence as possible in misclassified results for these classifiers. This is done even to the detriment of confidence in correct classifications.
-
-\subsubsection{Evaluation}
-
-\subsection{Deciding Classifier Training}
-The deciding classifier's goals are more in line with those of traditional classifiers. The training and evaluation time of this classifier is much less important than its classification accuracy and precision. This is due to the idea that the evaluation task will be executed on much fewer documents than the filtering classifiers.
-
-\subsubsection{Training}
-
-\subsubsection{Evaluation}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/feature-reduction-results.png}
+    \caption{Caption}
+    \label{fig:overall-feat-res}
+\end{figure}
 
 \subsection{Filtering Classifier}
 As stated before, the filtering classifier has much different goals than that of the deciding classifier and as such has a different heuristic of optimality. The optimal classifiers in this case value scoring time and uncertainty in misclassification over pure accuracy performance.
@@ -114,7 +106,7 @@ Here, we compare performance of CNNs with that of the hierarchical approach.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\textwidth]{example-image-a}
+    \includegraphics[width=0.45\textwidth]{}
     \caption{Plot of training iterations needed before getting diminishing returns (comparative between classifiers)}
     \label{fig:learning-curve}
 \end{figure}
