@@ -120,7 +120,7 @@ We do not use a \textit{standard spectral filter-bank} that gives all
 frequencies equal weight in the representation.
 %
 We instead use the Mel-scale filter bank as it more closely maps the frequency
-representation to the perceptual scale of pitches in human hearing\AJ{Cite?}.
+representation to the perceptual scale of pitches in human hearing \cite{stevens_scale_1937}.
 %
 This filter bank is more discriminative at lower frequencies and 
 less discriminative at higher frequencies.
@@ -130,7 +130,7 @@ We calculate the Mel (\textbf{\textit{m}}) using ~\cref{eq:meleqn}:
     \textit{m} = 2595 * log_{10}(1+\textit{f}/700)
 \end{equation}
 %
-\AJ{Here, $f$ represents the frequency of the signal.}
+Here, $f$ represents the frequency of the signal.
 %
 The corresponding spectrum that we pull the features from gives more weight to
 frequencies that are important to human hearing.
@@ -162,7 +162,7 @@ noise as a component):
     I(X;Y) = \sum\sum p(x,y)\log(p(x,y)/p(x)p(y))
 \end{equation}
 %
-\AJ{Here, $p(x)$ and $p(y)$ represent the two component signals.}
+Here, $p(x)$ and $p(y)$ represent the two component signals.
 
 \PP{Splitting on Silence}
 %
@@ -191,7 +191,7 @@ rectified.
 Half-wave rectification sets negative portions of a signal to zero. 
 %
 In audio, much of what is expressed in the positive part of the signal is 
-simply mirrored on the negative axis\AJ{Cite?}. 
+simply mirrored on the negative axis\AJ{Cite?}.
 %
 Thus, by zeroing out the negative axis of the signal we reduce the amount of
 computation needed for each audio recording during feature extraction.
@@ -203,7 +203,7 @@ Two key questions related to discrimination of general auditory events are:
 (2) how much is from temporal evolution of the sound.
 %
 Prior research has shown that interactions are perceived in the temporal domain
-while objects are determined by the frequency domain\AJ{Cite?}. 
+while objects are determined by the frequency domain \cite{Vanderveer1980}. 
 %
 As we aim to create a classifier with the ability to distinguish between 
 general audio recordings, our feature vectors must take time into account. 
@@ -286,14 +286,11 @@ distribution.
 
 \item \textit{Spectral roll-off} captures the skew of the spectral shape. It
 computes the frequency below which a certain amount of the spectral energy
-resides.
+resides \cite{Eronen2006}.
 
 \item \textit{Spectral flatness} The rationale behind this acoustic activity
 detector is that the observed signal spectrum evinces more 'structure' when the
 signal of interest is present compared to when it is absent.
-%
-This increase in the structure of the signal may be characterized by a 
-reduction in the flatness of the magnitude spectrum of the signal\AJ{Cite?}.
 %
 Thus, setting an appropriate threshold on the flatness allows for detection of
 the presence of the target signal.
@@ -314,8 +311,11 @@ continuous waveform.
 \PP{Matrix to Vector Transformation}
 We apply statistical techniques to reduce this matrix to a vector. 
 %
-To reduce the representation to a vector while still retaining the data, we
-collect a combination of statistics. 
+To reduce the representation to a vector while still retaining the information, 
+we use statistical methods. 
+%
+Each audio frame's features have summary statistics calculated which become a 
+feature vector in the database.
 %
 We evaluate several combinations to determine the one that provides the most
 information-dense feature vector. 
@@ -323,8 +323,6 @@ information-dense feature vector.
 ~\cref{tab:stats} summarizes the tested combinations of feature statistics 
 and the number of derived descriptors.
 %
-\AJ{As many of these features are collected at a frame level statistics, found
-in~\cref{tab:stats}, are computed over the entire window. --?}
 
 \subsubsection{Feature Transformation}
 \label{sec:representation::transform}
