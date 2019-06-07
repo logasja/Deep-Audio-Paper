@@ -107,22 +107,23 @@ This challenge stems from the \textit{transparency} of audio unlike images.
 Thus, a spectrogram is analogous to placing several transparent images 
 over one another. 
 State-of-the-art CBAR systems use a convolutional neural network (CNN) for 
-image classification\AJ{Cite, describe CNN in a few sentences} and
+image classification \cite{hershey_cnn_2017, roma-content-based-2010} and
 train the model on the spectrograms.
+A CNN is an algorithm that assigns importances to sub-matrices of a matrix of size $MxN$ allowing it to differentiate one 
+from another. Over multiple iterations, filters are learned that best determine the existence of an object or series in a matrix.
 However, these systems are unable to deliver high accuracy (> 70\%) even with
 complex model ensembles~\cite{xu-large-scale-2018,piczak-environmental-2015}.
 
 A more recent development in image-based machine hearing is to use an
-unsupervised learning technique, called \textit{auto-encoding}\AJ{Cite?}. 
+unsupervised learning technique, called \textit{auto-encoding} \cite{Meyer2017}. 
 An auto-encoder is a type of neural network that learns to reconstruct its 
 input image by reducing it to latent variables.
-In image-based machine hearing, prior research has focused on reducing 
-\textit{spectrogram}\AJ{define?} to latent variables using a CNN.
+In image-based machine hearing, prior research has focused on reducing the 
+\textit{spectrogram}, the frequency representation of a waveform which manifests as an image,
+to latent variables using a CNN.
 This approach suffers from the limitations discussed above.
 While CNNs are effective on image recognition, they are unable to cope with the
-transparency of audio. Furthermore, they ignore key features (\AJ{What?}),
-thereby resulting in lower accuracy on real-world audio recordings with
-multiple sources.
+transparency of audio.
 
 \subsection{Waveform-Based Machine Hearing}
 % \begin{itemize}
@@ -140,8 +141,9 @@ coefficients} (MFCCs) are a frequently-used audio representation technique.
 The reasons for their popularity are twofold. First, they computationally
 efficient to compute. Next, they provide a representation that is consistent
 with human hearing~\cite{kaur-feature-2015}.
-While certain audio processing tasks are feasible using only MFCCs, we require 
-a more detailed representation for machine hearing\AJ{Cite?}.
+While certain audio processing tasks are feasible using only MFCCs, we see better performance
+in some tasks using a wider variety of features thus for general machine hearing we need 
+to include these features as well \cite{pichevar-auditory-inspired-2011}. 
 A naive solution to this problem is to extract the temporal and spectral
 features from the waveform to derive a more complete representation.
 However, this approach is computationally expensive and leads to higher data
@@ -151,23 +153,17 @@ Other techniques for constructing a detailed representation include: (1)
 Dynamic Time Warping (DTW) and (2) Hidden Markov Models (HMMs).
 These approaches directly work on the audio data itself and thus do not require
 feature extraction or constructions of spectral images.
-They have found success in both speech recognition and specialized retrieval
-systems\AJ{Cite?}.
-Both DTW and HMMs have the benefit of taking referring back to previous states during determination, thus capturing the sequential nature 
-of audio. 
+Both DTW and HMMs have the benefit of referring back to previous states during determination, thus capturing the sequential nature of audio. 
 However, DTW is computationally expensive and it is infeasible to support 
-large audio databases using this technique.
-Similarly, the complexity of HMMs increases when they need to support tens of
-classes, as a model must be trained for each class.
+large audio databases with this technique.
+Similarly, HMM complexity increases as the number of classes increases, 
+as a model must be trained for each class.
 Additionally, neither technique takes advantage of domain knowledge 
 and do not conform to the machine hearing principles outlined
-in~\autoref{motivation:machine-hearing}.
+in ~\autoref{motivation:machine-hearing}.
 
-While auto-encoding with CNNs does not work well for audio retrieval,
-encoders based on Recurrent neural network (RNN) do not suffer from this
-limitation.
-This is because much of the information in a audio recording is dependent 
-on what comes before it.
+Recurrent Neural Network (RNN) encoders do not suffer from many of the issues that 
+the previous approaches do.
 Unlike CNN-based encoders that learn from the spectrogram image,
 RNN-based encoders learn from the waveform values or vectors of spectrogram
 features presented as a time series.
@@ -175,21 +171,6 @@ The latter approach has two additional benefits.
 First, RNN-based encoders are computationally efficient.
 Second, they create compact representations that take time into account 
 and can be used with any number of off-the-shelf classifiers.
-
-\AJ{Why do we need the following paragraph? --
-Researchers continue to seek the biological neural code for audio
-encoding~\cite{Eggermont2001}. 
-Through studies of the biological systems that convert sound waves to neural
-responses, researchers have been able to emulate certain steps of the audio
-encoding pipeline with other steps requiring speculation. 
-Smith and Lewicki present a non-linear model based on population spike code 
-to encode waveforms~\cite{smith-efficient-2006}. 
-They illustrate that idealized spikes encode precise temporal positions and
-magnitudes of underlying acoustic features. 
-This effort provides a method to efficiently extract a coding of natural 
-sounds, making sure the classifiers are working with an information-rich
-representation.
-}
 
 \begin{table}[t]
     \centering
