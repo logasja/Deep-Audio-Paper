@@ -86,7 +86,7 @@ downsamples the audio signal from its original sample rate.
 Since the most information dense range of hearing is below 8~kHz\AJ{Cite?},
 we only retain those frequencies after downsampling.
 %
-As per the Nyquist sampling theorem\AJ{Cite?}, the sampling rate must be at
+As per the Nyquist sampling theorem \cite{weik_nyquist_2001}, the sampling rate must be at
 least twice the highest frequency that must be retained:
 \begin{equation} \label{eq:nyq}
     f_{sampling} = f_{max} * 2
@@ -102,8 +102,8 @@ create aliases of a lower frequency signal.
 We resolve this aliasing problem by band-limiting the signal to 8~kHz,
 effectively removing data at the highest frequency. 
 %
-Through these steps we are able to reduce the number of samples by upto
-64\%\AJ{Min--Max?} while still retaining the critical information.
+Through these steps we are able to reduce the number of samples by 
+64\% at maximum while still retaining the critical information.
 
 \PP{Frequency-time series representation}
 %
