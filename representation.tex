@@ -43,13 +43,14 @@ We next discuss the different stages of the encoding pipeline in detail.
     \Tokenize{$(A)$} {
         \Input{Mono audio recording $A$.}
         \Output{A list of audio frames $L$ in the recording.}
-        $A_1 \gets Downsample(A)$\\
-        $A_2 \gets HalfwaveRectification(A_1)$\\
-        $A_3 \gets Normalize(A_2)$\\
-        $A_4 \gets GetMelCoefficients(A_3)$\\
-        $S \gets SplitOnSilence(A_3)$\\
+        $A \gets Downsample(A)$\\
+        $A \gets Low-Pass(A)$
+        $A \gets HalfwaveRectification(A)$\\
+        $A \gets Normalize(A)$\\
+        $A \gets GetMelCoefficients(A)$\\
+        $S \gets SplitOnSilence(A)$\\
         \ForEach{$s_i \in $S} {
-            $l \gets A_3[s_i]$\\
+            $l \gets A[s_i]$\\
             $L \gets MakeFrames(l)$\\
         }
         $\Return$ $L$
@@ -63,7 +64,7 @@ It is responsible for the bulk of the preprocessing on a given audio recording
 to construct an usable representation for classification.
 %
 These preprocessing steps include: 
-(1) applying a low-pass filter on the waveform \AJ{Not shown in Algo?}, 
+(1) applying a low-pass filter on the waveform, 
 %
 (2) downsampling the audio to 16~kHz to only retain the information-dense
 frequency range, 
