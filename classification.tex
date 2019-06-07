@@ -3,11 +3,12 @@
 In this section, we present the architecture of the classification model in
 \sys. 
 %
-We begin by making the case for a generalized model to enable performant and
-accurate content-based audio retrieval in~\cref{sec:classification-case}.
+We begin by making the case for a generalized model to enable
+performant and accurate content-based audio retrieval
+in~\cref{sec:classification-case}.
 %
-We then present our two-level hierarchy of classifiers that is derived from 
-machine hearing principles in~\cref{sec:classification-hierarchy}.
+We then present our two-level hierarchy of classifiers that is derived from a
+taxonomy of sounds.
 %
 Lastly, we describe the methods used in \sys to serve as top-level and
 bottom-level classifiers in~\cref{sec:classification-methods}.
@@ -15,66 +16,138 @@ bottom-level classifiers in~\cref{sec:classification-methods}.
 \subsection{Case for a Generalized Classification Model}
 \label{sec:classification-case}
 
-In the audio domain, it is often desirable to train specialized models instead
-of investigating general models. For example, performant models have been
-developed for tasks like speech recognition or music genre recognition with
-specific features chosen for the task \cite{Campbell1997,
-tzanetakis-musical-2002}. However, these approaches are not applicable to the
-general case of audio recognition. Here, we propose using and extending upon an
-ecological taxonomy of sound for our recognition model in an effort to make it
-generalizable to diverse databases.
+Classification models in the audio domain are typically tailored for a specific
+task, such as speech recognition or music genre recognition~\cite{Campbell1997,
+tzanetakis-musical-2002}.
+%
+However, these \textit{specialized} models are not effective for general-purpose
+audio recognition (\eg, classification of animal sounds).
+%
+Given this limitation of prior models, we propose to leverage an ecological
+taxonomy of sound to design a novel generalized classification model.
 
-Studies of human perception have long been of interest to ecologists, one in
-particular created a taxonomy of environmental sound based on physical
-properties and human perception. He hypothesized that in general listening
-tasks, humans rely on seemingly complex stimuli and not a combination of the
-senses as was previously thought which if true means that an agent can determine
-sources through audio alone. Gaver posits that sound provides information of
-audio items interacting in the environment and that these kinds of interactions
-can be separated into several classes and sub-classes. This hypothesis of
-hearing breaks the problem of decoding what we hear into much more generalizable
-pieces that an agent can be trained on \cite{Gaver1993}. Although Gaver's
-taxonomy only creates a taxonomy for interacting materials in the environment,
-other researchers have similarly studied perception of animal vocalizations and
-music.
+Studies of human auditory event perception have long been of interest to
+ecologists.
+%
+Gaver created a taxonomy of environmental sounds based on physical properties
+and human perception~\cite{Gaver1993}.
+%
+He hypothesized that in general listening tasks, humans rely on complex stimuli 
+and not a combination of the senses as was previously thought.
+%
+If this hypothesis holds, an agent can determine the sources of an audio
+recording through audio alone without relying on other senses (\eg, vision).
+%
+Gaver posits that audio contains sufficient information regarding the items
+interacting in the environment and that these interactions can be separated 
+into several classes and sub-classes.
+%
+This hypothesis of hearing breaks the problem of decoding what we hear into  
+more generalizable pieces on which an agent can be trained~\cite{Gaver1993}.
+%
 
-Lewicki's work aids in gaining a better understanding of how animal sounds will
-fit into a general sound taxonomy \cite{lewicki-efficient-2002}. It is noted by
-Lewicki that environmental sounds are structurally different from animal
-vocalizations in that animal vocalizations are longer, harmonic, and have a
-narrow bandwidth while environmental sounds are transient, non-harmonic, and are
-broadband. He hypothesizes that this has intentionally evolved to allow for
-easier discrimination from environmental sounds when communicating. However,
-Lewicki finds that human speech is structurally different from normal animal
-vocalizations in that it contains a mix of harmonic and non-harmonic structures.
-As such, in the taxonomy, speech and animal vocalizations are two separate
-branches.
+Gaver only created a taxonomy for interacting materials in the environment.
+%
+However, other ecologists have subsequently studied human perception of animal
+vocalizations and music.
+%
+In particular, Lewicki examined how animal sounds fit into a generalized
+taxonomy of sounds~\cite{lewicki-efficient-2002}.
+%
+He found that environmental sounds are structurally different from animal
+vocalizations in that the latter sounds are longer, harmonic, and have a narrow
+bandwidth while the former sounds are transient, non-harmonic, and are
+broadband.
+%
+Lewicki hypothesizes that this dichotomy has intentionally evolved to allow for
+easier discrimination from environmental sounds when communicating.
+%
+Furthermore, he notes that human speech is structurally different from 
+normal animal vocalizations in that it contains a mix of harmonic and
+non-harmonic structures.
+%
+Thus, speech and animal vocalizations are two separate branches in the
+generalized sound taxonomy.
 
-Both Gaver and Lewicki make a distinction between how we listen normally and how
-we listen to music. As such, even though speech and interacting elements
-technically make up music, how we listen to and classify musical sounds is
-different. Thus, music in the taxonomy makes up its own branch in the hierarchy
-indicating that once the agent determines a sound is music, it will begin
-listening to it differently.
+
+Ecologists also make a distinction between how we listen to regular sounds  
+and how we listen to music~\AJ{Cite?}.
+%
+As such, even though speech and interacting elements technically make up music,
+the manner in which we listen to and classify musical sounds is different. 
+%
+Thus, we place music in its own branch in the taxonomy since once the agent
+determines that an audio recording consists of music, it will begin listening 
+to it differently.
+
 
 \subsection{Two-Level Hierarchy of Classifiers}
 \label{sec:classification-hierarchy}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.49\textwidth]{figures/ensemble-overview.png}
+    \includegraphics[width=0.45\textwidth]{figures/ensemble-overview.png}
     \caption{An overview of the proposed ensemble classifier.}
     \label{fig:classifier-hierarchy}
 \end{figure}
 
-Most classification tasks are what are called \textbf{flat classification}
-meaning there is no hierarchy between the categories or if there is, it is
-ignored. Our classification model instead uses the above taxonomy as a guide for \textbf{hierarchical classification} with a top-down approach. In a hierarchical model, multiple classifiers are trained on the same data. Unlike other ensemble methods though, this model trains each classifier with different goals \cite{chou-hierarchical-2003}. Here, we train a classifier per level of the tree. In evaluation, the algorithm follows a classification path, choosing a direction as each level is evaluated. This approach increases overall performance by breaking the classification task into smaller and less complex problems. Additionally, this approach allows us to throw out clearly irrelevant documents early, improving query runtime.
+Most classification models are \textit{flat} in that there is no hierarchy
+between the classes (\ie, categories) to which an audio recording
+belongs~\AJ{Cite?}.
+%
+We instead design a \textit{hierarchical} classification model based on a
+generalized sound taxonomy presented in~\cref{sec:classification-case}.
+%
+In our hierarchical model, multiple classifiers are trained on the same 
+training audio database.
+%
+Unlike other ensemble methods though, this model trains each classifier with
+varying goals~\cite{chou-hierarchical-2003}. 
+%
+We train a classifier for each level of the two-level tree. 
+%
+While classifying a recording, the algorithm follows a classification path,
+choosing the appropriate child node as each level is evaluated.
+%
+This approach increases overall performance by breaking the classification 
+task into smaller, less complex problems. 
+%
+Furthermore, such a two-level hierarchical model allows us to quickly filter out
+irrelevant recordings, thereby accelerating query processing.
 
-\subsubsection{Risks}
-Error propagation is a major issue in this approach and if not managed can ruin the approach outright. Each classifier has some classification error inherent to it and as such a high error on higher level classifiers can seriously impede the efficacy of the system as a whole. We address this through use of probabilistic classifiers, enabling a measure of certainty, and how retrieval of documents is carried out.
+\PP{Error Propagation}
+%
+Error propagation is a major issue in this approach and if not managed can ruin
+it outright. 
+%
+Each classifier has an associated classification error inherent to it.
+%
+If the error of higher level classifiers is high, that can seriously impede the
+efficacy of the entire model. 
+%
+We tackle this challenge by leveraging \textit{probabilistic classifiers} that
+are asssociated with a measure of certainty.
+%
+We defer a discussion on how a probabilistic approach attenuates the error
+propagation problem in~\cref{sec:retrieval}.
 
-Another consideration when working with a hierarchical classifier is whether the lowest level classes have enough examples to train a general model. If too few examples of a low-level class are in the database, the classifiers will begin to overfit. To mitigate this issue, another threshold policy is introduced. This time, the threshold is the minimum number of examples required to allow a classifier to be trained on a certain class. This results in instances of the model trained on a smaller database being less precise in their retrieval.
+\PP{Imbalanced Classes}
+%
+Another consideration when working with a hierarchical classifier is whether 
+the bottom-level classes have enough examples to train a general model.
+%
+If the database contains too few examples of a low-level class, the classifiers 
+will suffer from overfitting. 
+%
+To mitigate this issue, we introduce a threshold policy that determines the
+minimum number of examples required to allow a classifier to be trained on a
+certain class.
+%
+This results in instances of the model trained on a smaller database being less
+precise in their retrieval.
+%
+We study the sensitivity of our classification model to this threshold policy
+in~\cref{sec:experiments-sensitivity}.
 
 \subsection{Classification Methods}
 \label{sec:classification-methods}
